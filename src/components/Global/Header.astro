@@ -1,0 +1,29 @@
+---
+import Navigation from "./Navigation.astro";
+---
+
+<header class="sticky top-0 z-50 w-full bg-paper/90 shadow-md backdrop-blur-md">
+  <div class="container flex h-20 items-center justify-between">
+    <a
+      href="/"
+      class="flex items-center font-sans text-2xl font-bold text-primary-800"
+    >
+      <span
+        class="mr-2 h-10 w-10 shrink-0 bg-primary-300"
+        style="-webkit-mask: url('/favicon.svg') center / contain no-repeat; mask: url('/favicon.svg') center / contain no-repeat;"
+        aria-hidden="true"
+      >
+        <img
+          src="/favicon.svg"
+          alt=""
+          width="40"
+          height="40"
+          class="h-full w-full mix-blend-multiply"
+        />
+      </span>
+      <span class="text-leaf">Club Lillois de Judo Kendo</span>
+    </a>
+
+    <Navigation />
+  </div>
+</header>

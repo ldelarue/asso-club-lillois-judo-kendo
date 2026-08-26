@@ -1,0 +1,218 @@
+---
+import { getCollection } from "astro:content";
+import Card from "../UI/Card.astro";
+import Button from "../UI/Button.astro";
+import {
+  formatDate,
+  getArticlePath,
+  getEventEndDate,
+  getEventPath,
+  isPastDate,
+} from "../../utils/dateUtils";
+
+const ITEM_COUNT = 3;
+const now = new Date();
+
+const [allEvents, allPosts] = await Promise.all([
+  getCollection("events", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  ),
+  getCollection("articles", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true,
+  ),
+]);
+
+const currentAndUpcomingEvents = allEvents
+  .filter((event) => !isPastDate(getEventEndDate(event.data)))
+  .sort((a, b) => {
+    const aIsOngoing = a.data.startDate.getTime() <= now.getTime();
+    const bIsOngoing = b.data.startDate.getTime() <= now.getTime();
+
+    if (aIsOngoing !== bIsOngoing) return aIsOngoing ? -1 : 1;
+
+    if (!aIsOngoing) {
+      return a.data.startDate.getTime() - b.data.startDate.getTime();
+    }
+
+    const aEndsAt = new Date(getEventEndDate(a.data)).getTime();
+    const bEndsAt = new Date(getEventEndDate(b.data)).getTime();
+
+    return aEndsAt - bEndsAt;
+  })
+  .slice(0, ITEM_COUNT);
+
+const posts = allPosts
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, ITEM_COUNT - currentAndUpcomingEvents.length);
+---
+
+<section class="py-16 bg-gray-50">
+  <div class="container">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Actualités</h2>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-8">
+      {
+        currentAndUpcomingEvents.map((event) => (
+          <div class="relative w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
+            <Card
+              className="block h-full w-full bg-white shadow-md hover:shadow-lg transition-shadow"
+              title={event.data.title}
+              image={{ src: event.data.image }}
+              href={getEventPath(event)}
+            >
+              <div class="mb-3 flex items-center text-gray-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <span>
+                  {formatDate(event.data.startDate)}
+                  {event.data.endDate && ` - ${formatDate(event.data.endDate)}`}
+                </span>
+              </div>
+
+              <div class="mb-3 flex items-center text-gray-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span>{event.data.location}</span>
+              </div>
+
+              {event.data.summary && (
+                <p class="text-gray-700 mb-4">{event.data.summary}</p>
+              )}
+              <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
+                En savoir plus →
+              </p>
+            </Card>
+
+            <span
+              class="pointer-events-none absolute -right-3 -top-3 z-10 flex h-11 w-11 items-center justify-center rounded-full border-4 border-gray-50 bg-primary-600 text-white shadow-md"
+              role="img"
+              aria-label="Événement"
+              title="Événement"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            </span>
+          </div>
+        ))
+      }
+
+      {
+        posts.map((post) => (
+          <div class="w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.34rem)]">
+            <Card
+              className="block h-full w-full bg-white shadow-md hover:shadow-lg transition-shadow"
+              title={post.data.title}
+              image={{
+                src:
+                  typeof post.data.image === "string"
+                    ? post.data.image
+                    : post.data.image?.url || "/images/blog-placeholder.webp",
+              }}
+              href={getArticlePath(post)}
+              dataTags={post.data.tags.join(",")}
+              dataAuthor={post.data.author}
+              dataDate={post.data.pubDate.toISOString().slice(0, 10)}
+            >
+              <div class="mb-3 flex items-center text-gray-600">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5 mr-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <span>{formatDate(post.data.pubDate)}</span>
+              </div>
+
+              {post.data.author && (
+                <div class="mb-3 flex items-center text-gray-600">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-5 w-5 mr-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                    />
+                  </svg>
+                  <span>{post.data.author}</span>
+                </div>
+              )}
+
+              {post.data.description && (
+                <p class="text-gray-700 mb-4">{post.data.description}</p>
+              )}
+              <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700">
+                Lire l'article →
+              </p>
+            </Card>
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-12 flex flex-wrap justify-center gap-4">
+      <Button href="/articles" variant="outline">Voir tous les articles</Button>
+      <Button href="/evenements" variant="outline"
+        >Voir tous les événements</Button
+      >
+    </div>
+  </div>
+</section>

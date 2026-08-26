@@ -1,0 +1,342 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import JoinUs from "../components/Sections/JoinUs.astro";
+import shinaiImage from "../assets/images/shinai-800x533.jpg";
+---
+
+<BaseLayout title="Le Dojo">
+  <!-- Contact Staff CTA -->
+  <section class="py-16 bg-paper">
+    <div class="container">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+        <div class="order-2 md:order-1">
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Notre mission</h2>
+          <p class="text-xl text-gray-700 mb-8">
+            Association loi 1901 à but non lucratif, notre dojo transmet les
+            arts martiaux japonais sans recherche de profit. L'engagement de nos
+            bénévoles et de nos enseignants est entièrement tourné vers la
+            pratique et la vie du club.
+          </p>
+
+          <h2 class="text-3xl md:text-4xl font-bold mb-6">Notre ambition</h2>
+          <p class="text-xl text-gray-700 mb-8">
+            Nous faisons du dojo un lieu d'accomplissement personnel et
+            collectif. Chacun peut y progresser à son rythme, développer ses
+            qualités humaines et contribuer à une pratique exigeante,
+            bienveillante et accessible.
+          </p>
+        </div>
+
+        <div class="order-1 w-full overflow-hidden rounded-lg bg-neutral-400 md:max-w-[520px] md:justify-self-end md:order-2">
+          <img
+            src={shinaiImage.src}
+            alt="Shinai de kendo"
+            width={shinaiImage.width}
+            height={shinaiImage.height}
+            loading="lazy"
+            decoding="async"
+            class="w-full h-auto object-cover shadow-lg"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="py-16 bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Les valeurs qui nous rassemblent
+        </h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Au-delà de la technique, la pratique au dojo aide chacun à grandir
+          avec les autres.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+          <div
+            class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-primary-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Transmission</h3>
+          <p class="text-gray-700">
+            Les enseignants transmettent les techniques, les codes et l'histoire
+            des disciplines pour faire vivre une expérience fidèle aux arts
+            martiaux japonais traditionnels.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+          <div
+            class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-primary-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Respect et bienveillance</h3>
+          <p class="text-gray-700">
+            Courtoisie, honnêteté, courage et respect guident notre pratique.
+            Chaque partenaire contribue à la progression de l'autre, quel que
+            soit son niveau.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+          <div
+            class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-primary-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Ouverture entre dojos</h3>
+          <p class="text-gray-700">
+            Les pratiquants d'autres dojos sont les bienvenus à nos
+            entraînements. Ces rencontres permettent d'échanger, de confronter
+            les expériences et d'enrichir la pratique de tous.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+          <div
+            class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-primary-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Progression durable</h3>
+          <p class="text-gray-700">
+            La régularité, la patience et le goût de l'effort permettent à
+            chacun d'avancer à son rythme. Les progrès individuels nourrissent
+            ceux du groupe.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+          <div
+            class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-primary-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 14l9-5-9-5-9 5 9 5z"></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 14l6.16-3.422A12.083 12.083 0 0119 15.5c0 1.657-3.134 3-7 3s-7-1.343-7-3c0-1.737.292-3.406.84-4.922L12 14z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Accueil des enfants</h3>
+          <p class="text-gray-700">
+            Les jeunes pratiquants bénéficient d'un encadrement adapté à leur
+            âge. Les enseignants veillent à leur sécurité, à leur épanouissement
+            et au développement de leur confiance.
+          </p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-sm">
+          <div
+            class="w-16 h-16 rounded-full bg-primary-100 flex items-center justify-center mb-6"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-8 w-8 text-primary-700"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Engagement associatif</h3>
+          <p class="text-gray-700">
+            Le club vit grâce à l'implication de ses bénévoles et de ses
+            adhérents. Chacun peut participer aux événements, à l'accueil et aux
+            projets qui font vivre le dojo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dojo History -->
+  <section class="py-16 bg-paper">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Son histoire</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Les grandes étapes de l'histoire du dojo, depuis sa fondation jusqu'à
+          aujourd'hui.
+        </p>
+      </div>
+
+      <div class="max-w-4xl mx-auto">
+        <ol class="py-6">
+          <li
+            class="grid grid-cols-[5.5rem_1.5rem_minmax(0,1fr)] sm:grid-cols-[8rem_2rem_minmax(0,1fr)] gap-x-3 sm:gap-x-5 pb-10"
+          >
+            <time class="pt-1 text-xs font-semibold text-gray-500 uppercase"
+              >1946</time
+            >
+            <div class="relative flex justify-center" aria-hidden="true">
+              <span class="absolute top-3 -bottom-10 w-px bg-gray-300"></span>
+              <span
+                class="relative mt-2 h-3 w-3 rotate-45 border-2 border-primary-600 bg-paper"
+              ></span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-xl font-bold text-gray-900">Fondation</h3>
+              <p class="mt-2 text-gray-700">
+                Naissance de l'association autour d'une volonté commune :
+                transmettre les arts martiaux japonais et offrir aux pratiquants
+                l'espace nécessaire pour progresser ensemble.
+              </p>
+            </div>
+          </li>
+
+          <li
+            class="grid grid-cols-[5.5rem_1.5rem_minmax(0,1fr)] sm:grid-cols-[8rem_2rem_minmax(0,1fr)] gap-x-3 sm:gap-x-5 pb-10"
+          >
+            <time class="pt-1 text-xs font-semibold text-gray-500 uppercase"
+              >Années 1980</time
+            >
+            <div class="relative flex justify-center" aria-hidden="true">
+              <span class="absolute top-3 -bottom-10 w-px bg-gray-300"></span>
+              <span
+                class="relative mt-2 h-3 w-3 rotate-45 border-2 border-primary-600 bg-paper"
+              ></span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-xl font-bold text-gray-900">
+                Le dojo s'agrandit
+              </h3>
+              <p class="mt-2 text-gray-700">
+                De nouvelles disciplines rejoignent le club. Les échanges entre
+                enseignants et pratiquants renforcent une identité commune,
+                fondée sur la transmission et le respect.
+              </p>
+            </div>
+          </li>
+
+          <li
+            class="grid grid-cols-[5.5rem_1.5rem_minmax(0,1fr)] sm:grid-cols-[8rem_2rem_minmax(0,1fr)] gap-x-3 sm:gap-x-5 pb-10"
+          >
+            <time class="pt-1 text-xs font-semibold text-gray-500 uppercase"
+              >Années 2000</time
+            >
+            <div class="relative flex justify-center" aria-hidden="true">
+              <span class="absolute top-3 -bottom-10 w-px bg-gray-300"></span>
+              <span
+                class="relative mt-2 h-3 w-3 rotate-45 border-2 border-primary-600 bg-paper"
+              ></span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-xl font-bold text-gray-900">
+                Des rencontres au-delà du club
+              </h3>
+              <p class="mt-2 text-gray-700">
+                Le dojo développe les stages, démonstrations et rencontres
+                interclubs. Ces rendez-vous deviennent des temps forts pour
+                découvrir d'autres approches et créer des liens durables.
+              </p>
+            </div>
+          </li>
+
+          <li
+            class="grid grid-cols-[5.5rem_1.5rem_minmax(0,1fr)] sm:grid-cols-[8rem_2rem_minmax(0,1fr)] gap-x-3 sm:gap-x-5"
+          >
+            <time class="pt-1 text-xs font-semibold text-gray-500 uppercase"
+              >Aujourd'hui</time
+            >
+            <div class="relative flex justify-center" aria-hidden="true">
+              <span
+                class="relative mt-2 h-3 w-3 rotate-45 border-2 border-primary-600 bg-paper"
+              ></span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="text-xl font-bold text-gray-900">
+                Une pratique pour toutes les générations
+              </h3>
+              <p class="mt-2 text-gray-700">
+                Enfants, adultes, débutants et pratiquants confirmés partagent
+                le dojo. Le club poursuit son projet associatif en conciliant
+                tradition, sécurité et ouverture.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- Staff List -->
+  <!-- <StaffList /> -->
+
+  <JoinUs />
+</BaseLayout>

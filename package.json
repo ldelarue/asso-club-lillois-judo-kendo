@@ -1,0 +1,37 @@
+{
+  "name": "club-lillois-kendo",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "images:generate": "node scripts/generate-responsive-images.mjs",
+    "predev": "npm run images:generate",
+    "dev": "astro dev",
+    "prebuild": "npm run images:generate",
+    "build": "astro build",
+    "precheck": "npm run images:generate",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.1.1",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource/playfair-display": "^5.3.0",
+    "@fontsource/source-sans-pro": "^5.3.0",
+    "astro": "^5.2.5",
+    "date-fns": "^3.3.1",
+    "pdf-lib": "^1.17.1",
+    "tailwindcss": "^3.4.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@tailwindcss/typography": "^0.5.10",
+    "prettier": "^3.5.3",
+    "prettier-plugin-astro": "^0.14.1",
+    "sharp": "^0.35.3",
+    "typescript": "^5.8.2"
+  }
+}

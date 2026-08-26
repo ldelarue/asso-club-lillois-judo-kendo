@@ -1,0 +1,146 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import defaultProfile from "../../assets/default-profile.png";
+import ResponsiveImage from "../UI/ResponsiveImage.astro";
+const { showAll = true, limit = 6 } = Astro.props;
+
+const allStaff = await getCollection("staff", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
+const disciplines = await getCollection("disciplines", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
+const staffByName = new Map(allStaff.map((staff) => [staff.data.name, staff]));
+const teacherNames = new Set(
+  disciplines.flatMap(({ data }) => [
+    ...(data.coordinator ? [data.coordinator] : []),
+    ...(data.enseignantsReferents ?? []),
+    ...(data.enseignantsAssistants ?? []),
+  ]),
+);
+const unknownTeacherNames = [...teacherNames].filter(
+  (name) => !staffByName.has(name),
+);
+
+if (unknownTeacherNames.length > 0) {
+  throw new Error(
+    `Profils enseignants introuvables : ${unknownTeacherNames.join(", ")}`,
+  );
+}
+
+const isStaff = (
+  staff: CollectionEntry<"staff"> | undefined,
+): staff is CollectionEntry<"staff"> => staff !== undefined;
+const byOrderThenName = (
+  first: CollectionEntry<"staff">,
+  second: CollectionEntry<"staff">,
+) =>
+  first.data.order - second.data.order ||
+  first.data.name.localeCompare(second.data.name, "fr");
+const teachers = [...teacherNames]
+  .map((name) => staffByName.get(name))
+  .filter(isStaff)
+  .sort(byOrderThenName)
+  .slice(0, showAll ? undefined : limit);
+const administrators = allStaff
+  .filter((staff) => staff.data.clubRole)
+  .sort(byOrderThenName);
+---
+
+<section id="staff" class="py-16 bg-white">
+  <div class="container mx-auto px-4">
+    <h2 class="text-3xl font-bold text-center mb-4">Nos enseignants</h2>
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 auto-rows-fr"
+    >
+      {
+        teachers.map((staff) => (
+          <div class="bg-white rounded-lg shadow overflow-hidden flex flex-col h-full">
+            <div class="relative w-full aspect-square overflow-hidden rounded-xl">
+              <ResponsiveImage
+                src={staff.data.image || defaultProfile.src}
+                alt={staff.data.name}
+                sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                width={640}
+                height={640}
+                loading="lazy"
+                decoding="async"
+                class="absolute inset-0 w-full h-full object-cover object-center"
+              />
+            </div>
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-xl font-semibold mb-1">{staff.data.name}</h3>
+              {staff.data.clubRole && (
+                <p class="text-primary-600 mb-2">{staff.data.clubRole}</p>
+              )}
+              <p class="text-gray-700 text-sm">{staff.data.bio}</p>
+              <div class="mt-auto space-y-1 pt-4 text-sm">
+                {staff.data.email && (
+                  <a
+                    href={`mailto:${staff.data.email}`}
+                    class="text-primary-600 hover:underline block"
+                  >
+                    {staff.data.email}
+                  </a>
+                )}
+                {staff.data.phone && (
+                  <a
+                    href={`tel:${staff.data.phone}`}
+                    class="text-primary-600 hover:underline block"
+                  >
+                    {staff.data.phone}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+
+    {showAll && administrators.length > 0 && (
+      <div class="mt-16">
+        <h2 class="mb-8 text-center text-3xl font-bold">
+          Équipe administrative
+        </h2>
+        <div class="grid auto-rows-fr grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          {administrators.map((staff) => (
+            <div class="flex h-full flex-col overflow-hidden rounded-lg bg-white shadow">
+              <div class="relative aspect-square w-full overflow-hidden rounded-xl">
+                <ResponsiveImage
+                  src={staff.data.image || defaultProfile.src}
+                  alt={staff.data.name}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  width={640}
+                  height={640}
+                  class="absolute inset-0 h-full w-full object-cover object-center"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <div class="flex flex-1 flex-col p-4">
+                <h3 class="mb-1 text-xl font-semibold">{staff.data.name}</h3>
+                <p class="mb-2 text-primary-600">{staff.data.clubRole}</p>
+                {staff.data.bio && (
+                  <p class="text-sm text-gray-700">{staff.data.bio}</p>
+                )}
+                <div class="mt-auto space-y-1 pt-4 text-sm">
+                  {staff.data.email && (
+                    <a href={`mailto:${staff.data.email}`} class="block text-primary-600 hover:underline">
+                      {staff.data.email}
+                    </a>
+                  )}
+                  {staff.data.phone && (
+                    <a href={`tel:${staff.data.phone}`} class="block text-primary-600 hover:underline">
+                      {staff.data.phone}
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+  </div>
+</section>

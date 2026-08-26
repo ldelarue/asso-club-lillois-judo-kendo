@@ -1,0 +1,314 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroSection from "../components/Sections/HeroSection.astro";
+import Button from "../components/UI/Button.astro";
+import JoinUs from "../components/Sections/JoinUs.astro";
+import NewsList from "../components/Sections/NewsList.astro";
+import Disciplines from "../components/Sections/disciplines.astro";
+import conf from "../utils/siteConfig";
+import mapBackground from "../assets/map-bg.jpg";
+import heroBackground from "../assets/images/montagne.webp";
+import { getCollection, getEntry } from "astro:content";
+import { validateContentReferences } from "../utils/contentReferences";
+// helper: split first word and the rest
+const splitFirst = (text: string) => {
+  if (!text) return { first: "", rest: "" };
+  const trimmed = String(text).trim();
+  const parts = trimmed.split(/\s+/);
+  const first = parts.shift() || "";
+  const rest = parts.join(" ");
+  return { first, rest };
+};
+
+const allDisciplines = await getCollection("disciplines");
+const disciplines = allDisciplines.filter(({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
+
+const normalizeSectionName = (value: string | undefined) =>
+  String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+
+validateContentReferences({
+  source: "Configuration des horaires",
+  values: conf.home.schedules.map(({ section }) => section),
+  knownValues: allDisciplines.map(({ data }) => data.name),
+  requireAll: true,
+});
+
+const disciplineOrderByName = new Map(
+  disciplines.map((discipline) => [
+    normalizeSectionName(discipline.data.name),
+    discipline.data.order ?? 999,
+  ]),
+);
+
+const sortedSchedules = [...conf.home.schedules].sort((a, b) => {
+  const aName = normalizeSectionName(a.section);
+  const bName = normalizeSectionName(b.section);
+
+  // Keep Kendo first, then Aikido, then Judo, regardless of configured order.
+  if (aName === "kendo" && bName !== "kendo") return -1;
+  if (bName === "kendo" && aName !== "kendo") return 1;
+
+  if (aName === "aikido" && bName !== "kendo" && bName !== "aikido")
+    return -1;
+  if (bName === "aikido" && aName !== "kendo" && aName !== "aikido")
+    return 1;
+
+  if (aName === "judo" && bName !== "kendo" && bName !== "aikido" && bName !== "judo")
+    return -1;
+  if (bName === "judo" && aName !== "kendo" && aName !== "aikido" && aName !== "judo")
+    return 1;
+
+  const aOrder = disciplineOrderByName.get(aName) ?? 999;
+  const bOrder = disciplineOrderByName.get(bName) ?? 999;
+  if (aOrder !== bOrder) return aOrder - bOrder;
+
+  return aName.localeCompare(bName, "fr");
+});
+
+const scheduleColumns = [
+  sortedSchedules.filter(
+    (schedule) => normalizeSectionName(schedule.section) === "kendo",
+  ),
+  sortedSchedules.filter((schedule) =>
+    ["aikido", "judo"].includes(normalizeSectionName(schedule.section)),
+  ),
+  sortedSchedules.filter(
+    (schedule) =>
+      !["kendo", "aikido", "judo"].includes(
+        normalizeSectionName(schedule.section),
+      ),
+  ),
+];
+const scheduleColumnClasses = [
+  "md:col-start-1",
+  "md:col-start-2",
+  "md:col-start-3",
+];
+
+// Access content will be attempted to be loaded as an Astro content entry
+// and rendered via the returned `Content` component (same as discipline pages).
+
+// Try to load `access-info` as an Astro content entry so it renders like
+// discipline pages (uses Astro's markdown -> component pipeline).
+let AccessContent: any = null;
+try {
+  const accessEntry = await getEntry("pages", "access-info");
+  if (accessEntry) {
+    const rendered = await accessEntry.render();
+    AccessContent = rendered.Content;
+  }
+} catch (e) {
+  // ignore — we'll fall back to the raw `conf.home["access-info"]` string
+}
+---
+
+<BaseLayout>
+  <HeroSection
+    title="Les escrimes japonaises"
+    subtitle="Une passion qui nous unit"
+    backgroundImage={heroBackground}
+    ctaText="Découvrir le dojo"
+    ctaLink="/dojo"
+    secondaryCtaText="Explorer nos disciplines"
+    secondaryCtaLink="#nos-disciplines"
+  />
+
+  <Disciplines />
+
+  <NewsList />
+
+  <!-- Service Times -->
+  <section class="py-16 bg-primary-50">
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Horaires habituels</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 md:grid-rows-3 md:auto-rows-fr gap-8 mb-8">
+          {scheduleColumns.map((column, columnIndex) => (
+            <div
+              class:list={[
+                "flex h-full flex-col gap-8 md:row-span-3",
+                scheduleColumnClasses[columnIndex],
+              ]}
+            >
+              {column.map((schedule) => (
+                <article class="flex h-full flex-col rounded-lg bg-gray-50 p-4 shadow-sm">
+                  <h3 class="mb-4 text-xl font-bold">{schedule.section}</h3>
+                  <div class="flex flex-1 flex-col justify-evenly gap-3">
+                    {schedule.content.split("\n").map((line) => {
+                      const { first, rest } = splitFirst(line);
+                      return (
+                        <div
+                          class="grid items-start gap-4"
+                          style="grid-template-columns: 2fr 3fr;"
+                        >
+                          <div class="font-medium text-gray-600">{first}</div>
+                          <div class="text-base font-semibold text-gray-700">
+                            {rest}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  {schedule.comment && (
+                    <p class="mt-4 text-sm italic text-gray-500">
+                      {schedule.comment}
+                    </p>
+                  )}
+                </article>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section class="py-16 bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Accès à la salle</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+        <div
+          class="relative flex h-96 items-center justify-center overflow-hidden rounded-lg bg-neutral-400 p-8 text-center"
+          data-google-map={conf.home["maps-integration-source"]}
+        >
+          <img
+            src={mapBackground.src}
+            alt=""
+            width={mapBackground.width}
+            height={mapBackground.height}
+            loading="lazy"
+            decoding="async"
+            class="absolute inset-0 h-full w-full origin-top scale-125 object-cover object-top blur-sm"
+            aria-hidden="true"
+          />
+          <div class="absolute inset-0 bg-black/55"></div>
+          <div class="relative max-w-sm text-white">
+            <p class="mb-6 text-gray-100">
+              La carte est désactivée pour protéger votre vie privée. Son
+              affichage établira une connexion avec Google.
+            </p>
+            <button
+              type="button"
+              class="rounded-md bg-primary-600 px-5 py-3 font-medium text-white transition-colors hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+              data-load-google-map
+            >
+              Afficher la carte
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-md">
+            <div class="text-gray-700 prose max-w-none [&>*:first-child]:mt-0 [&_p]:my-1 [&_p]:leading-snug [&_h4]:my-2">
+              <p class="font-semibold text-gray-900 mb-3">
+                {conf.footer.addresses.dojo}
+              </p>
+              {
+                AccessContent ? (
+                  <AccessContent />
+                ) : (
+                  <Fragment set:html={conf.home["access-info"] || ""} />
+                )
+              }
+            </div>
+
+            <div class="mt-6">
+              <Button
+                href={conf.home["maps-url"]}
+                target="_blank"
+                variant="outline"
+              >
+                Itinéraires via Google Maps
+              </Button>
+            </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script>
+    document
+      .querySelectorAll<HTMLElement>("[data-google-map]")
+      .forEach((container) => {
+        container
+          .querySelector("[data-load-google-map]")
+          ?.addEventListener("click", () => {
+            const source = container.dataset.googleMap;
+            if (!source) return;
+
+            const iframe = document.createElement("iframe");
+            iframe.src = source;
+            iframe.className = "h-full w-full";
+            iframe.style.border = "0";
+            iframe.allowFullscreen = true;
+            iframe.referrerPolicy = "strict-origin-when-cross-origin";
+            iframe.title = "Localisation du dojo";
+
+            container.replaceChildren(iframe);
+            container.classList.remove("p-8");
+          });
+      });
+  </script>
+  <!-- Newsletter Signup -->
+  <!-- <section id="newsletter" class="py-16 bg-primary-50">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">
+          Inscrivez-vous à notre newsletter
+        </h2>
+        <p class="text-lg text-gray-700 mb-8">
+          Restez informé des dernières nouvelles, événements et mises à jour de
+          notre dojo en recevant des informations directement dans votre boîte
+          de réception.
+        </p>
+
+        <form id="newsletter-form" class="max-w-md mx-auto">
+          <div class="flex flex-col sm:flex-row gap-4">
+            <input
+              type="email"
+              id="newsletter-email"
+              placeholder="Votre adresse email"
+              required
+              class="flex-grow px-4 py-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+            />
+
+            <Button type="submit" variant="primary"> S'abonner </Button>
+          </div>
+          <p class="text-xs text-gray-600 mt-3">
+            En vous inscrivant à notre newsletter, vous acceptez que votre
+            adresse e-mail soit collectée et traitée conformément au Règlement
+            Général sur la Protection des Données (RGPD). Vos données seront
+            utilisées uniquement pour l’envoi de nos communications et ne seront
+            pas transmises à des tiers sans votre consentement.
+          </p>
+          <p class="text-xs text-gray-600 mt-3">
+            Vous pouvez vous désinscrire à tout moment.
+          </p>
+        </form>
+
+        <script>
+          // Handle newsletter form submission
+          document
+            .getElementById("newsletter-form")
+            ?.addEventListener("submit", function (e) {
+              e.preventDefault();
+
+              // In a real implementation, you would handle the form submission here
+              // For this template, we'll just show a success message
+              alert("Thank you for subscribing to our newsletter!");
+              (e.currentTarget as HTMLFormElement).reset();
+            });
+        </script>
+      </div>
+    </div>
+  </section> -->
+  <JoinUs />
+</BaseLayout>

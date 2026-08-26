@@ -1,0 +1,65 @@
+---
+import "../assets/styles/global.css";
+import "@fontsource/playfair-display/400.css";
+import "@fontsource/playfair-display/600.css";
+import "@fontsource/playfair-display/700.css";
+import "@fontsource/source-sans-pro/300.css";
+import "@fontsource/source-sans-pro/400.css";
+import "@fontsource/source-sans-pro/600.css";
+import Header from "../components/Global/Header.astro";
+import Footer from "../components/Global/Footer.astro";
+import Seo from "../components/UI/Seo.astro";
+import defaultSeoImage from "../assets/images/montagne.webp";
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: {
+    url: string;
+    alt: string;
+  };
+  type?: "website" | "article";
+  canonicalUrl?: string;
+}
+
+const {
+  title = "Club Lillois de Judo Kendo",
+  description = "Le Club Lillois de Judo Kendo est une association sportive dédiée à la pratique du Kendo, l'art martial japonais du sabre. Nous accueillons des pratiquants de tous niveaux, des débutants aux experts, et proposons des cours réguliers, des stages et des compétitions.",
+  image = {
+    url: defaultSeoImage.src,
+    alt: "Club Lillois de Judo Kendo",
+  },
+  type = "website",
+  canonicalUrl,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <Seo
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      canonicalUrl={canonicalUrl}
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="manifest" href="/site.webmanifest" />
+  </head>
+  <body>
+    <div class="flex flex-col min-h-screen">
+      <Header />
+
+      <main class="flex-grow">
+        <slot />
+      </main>
+
+      <Footer />
+    </div>
+  </body>
+</html>

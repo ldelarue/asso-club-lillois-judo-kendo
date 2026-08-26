@@ -1,0 +1,43 @@
+:root {
+  --hanabishi-size: 7.55em 7.5em;
+  --hanabishi-opacity: 5%;
+}
+
+:is(
+  section.bg-primary-50,
+  section.bg-paper,
+  section.bg-paper\/90,
+  .section-nav-pattern,
+  .post-page-pattern
+) {
+  position: relative;
+  isolation: isolate;
+}
+
+:is(
+  section.bg-primary-50,
+  section.bg-paper,
+  section.bg-paper\/90,
+  .section-nav-pattern,
+  .post-page-pattern
+)::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-color: var(--hana-tw-solid-color01, #d8ba66);
+  content: "";
+  opacity: var(--hanabishi-opacity);
+  pointer-events: none;
+  -webkit-mask-image: url("./Hanabishi.svg?v=6"), url("./Hanabishi.svg?v=6");
+  -webkit-mask-position:
+    0 0,
+    3.775em 3.75em;
+  -webkit-mask-repeat: repeat, repeat;
+  -webkit-mask-size: var(--hanabishi-size), var(--hanabishi-size);
+  mask-image: url("./Hanabishi.svg?v=6"), url("./Hanabishi.svg?v=6");
+  mask-position:
+    0 0,
+    3.775em 3.75em;
+  mask-repeat: repeat, repeat;
+  mask-size: var(--hanabishi-size), var(--hanabishi-size);
+}

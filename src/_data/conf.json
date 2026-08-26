@@ -1,0 +1,153 @@
+{
+  "home": {
+    "schedules": [
+      {
+        "section": "Aïkido",
+        "content": "Lundi 20h00-21h30\nMercredi 14h00-15h30\nJeudi 20h00-21h30\nVendredi 20h00-21h30\nSamedi 15h30-17h00",
+        "comment": "Cours enfants uniquement les mercredis et samedis"
+      },
+      {
+        "section": "Iaïdo",
+        "content": "Lundi 12h00-13h30\nMercredi 17h30-19h00\nSamedi 12h00-13h30"
+      },
+      {
+        "section": "Jodo",
+        "content": "Jeudi 20h00-22h00\nVendredi 20h00-22h00\nSamedi 10h00-12h00"
+      },
+      {
+        "section": "Judo",
+        "content": "Mercredi 16h00-17h00\nSamedi 14h00-15h30",
+        "comment": "Cours enfants / ados uniquement"
+      },
+      {
+        "section": "Kendo",
+        "content": "Mardi 18h00-20h00\nMercredi 19h00-20h00\nJeudi 12h00-13h30 18h00-20h00\nVendredi 12h00-13h30\nSamedi 17h30-19h00\nDimanche 11h00-12h30"
+      }
+    ],
+    "maps-url": "https://maps.google.com/?q=Complexe+Sportif+Halle+Saint+Sauveur,+266+Rue+Camille+Guérin,+59000+Lille",
+    "maps-integration-source": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12213.759842872885!2d3.050779927431935!3d50.6305517035104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d592b7f22db3%3A0xd40621ee33b88569!2s266%20Rue%20Camille%20Gu%C3%A9rin%2C%2059800%20Lille!5e0!3m2!1sfr!2sfr!4v1785248300523!5m2!1sfr!2sfr",
+    "access-info": "### Voiture\n\nDes parkings sont disponibles à proximité de la salle. Veuillez vérifier les panneaux de signalisation pour les restrictions de stationnement.\n\n### Métro\n\nLigne 2 (rouge) - Station \"Lille Grand Palais\", puis 5 minutes à pied.\n\n### Accessibilité\n\nLe bâtiment est entièrement accessible aux personnes à mobilité réduite, avec des rampes et des ascenseurs disponibles."
+  },
+  "tarifs": [
+    {
+      "discipline": "Judo",
+      "ageBands": [
+        {
+          "label": "Moins de 13 ans",
+          "cotisationClub": 114,
+          "licenceAssurance": 46
+        },
+        {
+          "label": "13 à 18 ans",
+          "cotisationClub": 134,
+          "licenceAssurance": 46
+        }
+      ]
+    },
+    {
+      "discipline": "Kendo",
+      "ageBands": [
+        {
+          "label": "Moins de 18 ans",
+          "cotisationClub": 164,
+          "licenceAssurance": 56
+        },
+        {
+          "label": "18 à 25 ans",
+          "cotisationClub": 224,
+          "licenceAssurance": 56
+        },
+        {
+          "label": "Plus de 25 ans",
+          "cotisationClub": 284,
+          "licenceAssurance": 56
+        }
+      ]
+    },
+    {
+      "discipline": "Iaïdo",
+      "ageBands": [
+        {
+          "label": "Enfant",
+          "cotisationClub": 164,
+          "licenceAssurance": 56
+        },
+        {
+          "label": "Adulte",
+          "cotisationClub": 224,
+          "licenceAssurance": 56
+        }
+      ]
+    },
+    {
+      "discipline": "Aïkido",
+      "ageBands": [
+        {
+          "label": "Moins de 13 ans",
+          "cotisationClub": 130,
+          "licenceAssurance": 30
+        },
+        {
+          "label": "13 à 18 ans",
+          "cotisationClub": 135,
+          "licenceAssurance": 45
+        },
+        {
+          "label": "18 ans et plus",
+          "cotisationClub": 165,
+          "licenceAssurance": 45
+        }
+      ]
+    },
+    {
+      "discipline": "Jodo",
+      "ageBands": [
+        {
+          "label": "Enfant",
+          "cotisationClub": 164,
+          "licenceAssurance": 56
+        },
+        {
+          "label": "Adulte",
+          "cotisationClub": 224,
+          "licenceAssurance": 56
+        }
+      ]
+    }
+  ],
+  "footer": {
+    "addresses": {
+      "dojo": "Complexe Sportif Halle Saint Sauveur, 266 Rue Camille Guérin, 59000 Lille",
+      "headquarters": "81 rue Pasteur, 59155 Faches-Thumesnil"
+    },
+    "other-websites": [
+      {
+        "label": "crkdr-hautsdefrance.com",
+        "url": "https://www.crkdr-hautsdefrance.com/"
+      },
+      {
+        "label": "ffjudo.com",
+        "url": "https://www.ffjudo.com/"
+      },
+      {
+        "label": "butokukan.be",
+        "url": "https://butokukan.be/fr/"
+      }
+    ],
+    "links": [
+      {
+        "label": "Outil de rédaction d'articles ",
+        "url": "https://app.pagescms.org/ldelarue/asso-club-lillois-kendo"
+      },
+      {
+        "label": "Archives",
+        "url": "/archives/www.kendo-lille.com/index.html"
+      },
+      {
+        "label": "Signaler un bug",
+        "url": "mailto:contact@kendo-lille.com?subject=Signaler%20un%20bug%20site%20web"
+      }
+    ],
+    "facebook-link": "https://www.facebook.com/p/kendo-lille-100064588397941/"
+  }
+}

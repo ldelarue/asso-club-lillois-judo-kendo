@@ -1,0 +1,271 @@
+	div.left { float:left; } 
+	div.right { float:right; } 
+	div.bottom { clear:both; }   
+	
+	.style_input{ 
+		 width:200px;
+		 height:19px;
+		 font-size:14px;  
+	}  
+	
+	#content {
+		margin:0;
+	}
+	
+	#container{
+		float:left;
+		width:700px;
+	}
+	
+	.cbox{
+		margin-left:25px;
+	}
+	
+	.combo{
+		margin-left:20px;
+	}
+	
+	textarea{ 
+		resize:none;
+	}
+	
+	.inscription {
+		float:left;		
+		width:710px;
+	}
+	
+	.precision_prix{
+		color:#53161D;
+		font-size: 12px;
+		margin-top:-9px;
+		position:absolute;
+	}
+	
+	input.confirm{
+		margin-left:280px;
+	}
+	
+	#titre_ins p {
+		margin:10;
+		margin-right:84px;
+		text-align:center;
+		font-size: 30px;
+		font-style : bold;
+		font-family: Tahoma;
+	}
+	
+	#form_inscription p {
+		margin:0;
+	}
+	
+	.div_form{
+		float:left;
+		width:325px;
+		height:50px;
+		margin-bottom:10px;
+	}
+	
+	.div_form_XL{
+		float:left;
+		width:700px;
+		height:50px;
+		margin-bottom:10px;
+	}
+	
+    .input_space{
+
+        margin-bottom:40px !important;
+    }
+ 
+    .input_form{
+        height:25px;
+        width:293px;
+    }
+
+        .input_date_form{
+               height:25px;
+               width:150px;
+               margin-bottom:10px;
+        }
+
+        .input_form_XL{
+               height:25px;
+               width:618px;
+               margin-bottom:10px;
+        }
+
+	.zone_erreur{
+		color:red;
+		text-align:center;
+		border: solid 2px red;		
+		margin-right:184px;
+		margin-left:100px;
+		margin-top:15px;
+		margin-bottom:15px;
+	}
+
+        .button_checkbox{
+               margin: 5px 15px;
+               padding: 5px !important;
+        }    
+    
+	div.col_left_ins {
+		float:left;
+		width:300px;
+	}
+	
+	div.col_right_ins {
+		float:left;
+		margin-left:25px;
+		width:300px;
+	}
+	
+	div.col_left_Info_Prat {
+		float:left;
+		width:180px;
+		color:Black;
+		margin-left:45px;
+		font-size: 14px;
+	}
+	
+	div.col_right_Info_Prat {
+		float:left;
+		margin-left:25px;
+		width:650px;
+		font-size: 14px;
+		font-weight:bold;
+	}
+	
+	div.col_left_Info_Stage {
+		float:left;
+		width:180px;
+		color:Black;
+		margin-left:45px;
+		font-size: 14px;
+	}
+	
+	div.col_right_Info_Stage  {
+		float:left;
+		margin-left:25px;
+		width:450px;
+		font-size: 14px;
+		font-weight:bold;
+	}
+	
+	div.calendrier_col_left {
+		float:left;
+		width:100px;
+		color:Black;
+		margin-left:50px;
+		font-size: 16px;
+		text-align:left;		
+	}
+	
+	div.calendrier_col_right {
+		float:left;
+		margin-left:25px;
+		width:450px;
+		font-size: 16px;
+		text-align:left;
+	}
+		
+	div.mess_connect{
+		clear:both;
+		width:500px;
+	}
+	
+	div.evenement{
+		clear:both;
+		width:500px;
+	}
+	
+	table.calendrier{
+		border:1px solid #53161D;
+		border-spacing: 2px; 
+		margin: 0 -1px 24px 0;
+		width:100%;
+	}
+	
+	td.calendrier{
+		border:1px solid #53161D;
+		padding: 2px 24px;
+		font-size: 14px;
+	}
+	
+	table.ins {
+		border:1px solid #000000;
+		border-spacing: 2px; 
+		margin :1px;
+	}
+	
+	td.inslille {
+	 color:black;
+	}
+		
+	th.ins {
+	font-size: 1em;
+	line-height: 1.4em;
+	font-family: Arial, Helvetica, sans-serif;
+	color: white;
+	background-color:grey;
+	padding: 10px 7px;
+	border-bottom: 1px solid black;
+	text-align: center;
+	font-weight: bold;
+	}
+	
+	td.ins{
+		padding: 2px;
+		vertical-align: middle;		
+	}
+	
+	tr.ins{
+		color:#333333;
+	}
+	
+	tr:hover.ins { 
+		background-color:#5E2C25 !important; 
+		color:white;	
+		cursor:  pointer;		
+	}
+	
+	a.button, a.buttonDis {
+		display: block;
+		float:center;
+		text-align:center;
+		background-color: transparent;
+		background-image: url("../../inscription/Image/buttonBackground.gif");
+		background-repeat: no-repeat;
+		width: 132px;
+		height: 28px;
+		margin: 5px auto;
+		padding: 5px 0 0 0;
+		font-size: 100%;
+		font-style: bold;
+		text-decoration: none;
+	}
+
+	a.button:link, a.button:visited {
+		color: #002577;
+	}
+	a.button:hover, a.button:active {
+		background-position: 0 -36px;
+		color: #FF7200;
+	}	
+	
+	.icon {
+		background-repeat: no-repeat;
+		padding: 0 0 18px 18px; }
+	}
+	
+	a.button:hover .icon, a.button:active .icon {
+		background-position: 0 -28px;
+	}
+	a.buttonDis:link .icon, a.buttonDis:visited .icon, a.buttonDis:hover .icon, a.buttonDis:active .icon {
+		background-position: 0 -56px;
+	}
+	
+	#buttonWORD .icon {
+		background-image: url("../../inscription/Image/word_petit.gif");
+	}
+				

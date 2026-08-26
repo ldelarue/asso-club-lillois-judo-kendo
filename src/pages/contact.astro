@@ -1,0 +1,130 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import defaultProfile from "../assets/default-profile.png";
+import ResponsiveImage from "../components/UI/ResponsiveImage.astro";
+
+const disciplines = await getCollection("disciplines", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
+const sortedDisciplines = disciplines.sort(
+  (first, second) => (first.data.order ?? 99) - (second.data.order ?? 99),
+);
+const allStaff = await getCollection("staff", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
+const staffByName = new Map(
+  allStaff.map((member) => [member.data.name, member]),
+);
+const clubDirectors = allStaff
+  .filter((member) => member.data.clubRole)
+  .sort((first, second) => second.data.order - first.data.order);
+---
+
+<BaseLayout title="Contact">
+  <section class="bg-primary-50 py-16">
+    <div class="container">
+      <div class="mb-12 text-center">
+        <h1 class="mb-4">Encadrement technique</h1>
+        <p class="mx-auto max-w-3xl text-xl text-gray-600">
+          Contactez-nous pour toute question ou information relative aux cours.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto grid max-w-6xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5"
+      >
+        {
+          sortedDisciplines.map((discipline) => {
+            const coordinator = discipline.data.coordinator
+              ? staffByName.get(discipline.data.coordinator)
+              : undefined;
+
+            return (
+              <article class="flex flex-col items-center rounded-lg bg-white p-4 text-center shadow-sm">
+                <div class="mb-4 h-24 w-24 overflow-hidden rounded-full">
+                  <ResponsiveImage
+                    src={coordinator?.data.image || defaultProfile.src}
+                    alt={coordinator ? coordinator.data.name : ""}
+                    sizes="96px"
+                    width={96}
+                    height={96}
+                    loading="lazy"
+                    decoding="async"
+                    class="h-full w-full !bg-white object-cover object-center"
+                  />
+                </div>
+                <h2 class="text-lg">{discipline.data.coordinator}</h2>
+                <p class="mb-3 text-sm font-medium text-primary-600">
+                  Section {discipline.data.name}
+                </p>
+                {(discipline.data.contact || coordinator?.data.email) && (
+                  <a
+                    href={`mailto:${discipline.data.contact ?? coordinator?.data.email}`}
+                    class="text-sm text-gray-700 hover:text-primary-600"
+                  >
+                    {discipline.data.contact ?? coordinator?.data.email}
+                  </a>
+                )}
+              </article>
+            );
+          })
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-gray-50 py-16">
+    <div class="container">
+      <div class="mb-12 text-center">
+        <h2 class="mb-4">Équipe administrative</h2>
+        <p class="mx-auto max-w-3xl text-xl text-gray-600">
+          Pour toute question administrative ou relative à la vie du club.
+        </p>
+      </div>
+
+      <div
+        class="mx-auto grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+      >
+        {
+          clubDirectors.map((member) => (
+            <article class="flex flex-col items-center rounded-lg bg-white p-4 text-center shadow-sm">
+              <div class="mb-4 h-24 w-24 overflow-hidden rounded-full">
+                <ResponsiveImage
+                  src={member.data.image || defaultProfile.src}
+                  alt={member.data.name}
+                  sizes="96px"
+                  width={96}
+                  height={96}
+                  loading="lazy"
+                  decoding="async"
+                  class="h-full w-full !bg-white object-cover object-center"
+                />
+              </div>
+              <h3 class="text-lg">{member.data.name}</h3>
+              <p class="mb-3 text-sm font-medium text-primary-600">
+                {member.data.clubRole}
+              </p>
+              {member.data.email && (
+                <a
+                  href={`mailto:${member.data.email}`}
+                  class="text-sm text-gray-700 hover:text-primary-600"
+                >
+                  {member.data.email}
+                </a>
+              )}
+              {member.data.phone && (
+                <a
+                  href={`tel:${member.data.phone}`}
+                  class="mt-1 text-sm text-gray-700 hover:text-primary-600"
+                >
+                  {member.data.phone}
+                </a>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

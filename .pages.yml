@@ -1,0 +1,254 @@
+settings:
+  commit:
+    templates:
+      create: "content(create): {path}"
+      update: "content(update): {path}"
+      delete: "content(delete): {path}"
+      rename: "content(rename): {oldPath} -> {newPath}"
+media:
+  - name: images
+    label: Images éditoriales
+    input: public/uploads
+    output: /uploads
+    categories: [image]
+    rename: safe
+  - name: documents
+    label: Documents éditoriaux
+    input: public/uploads
+    output: /uploads
+    categories: [document]
+    rename: safe
+content:
+  - name: config
+    label: Configuration du site web
+    type: file
+    path: src/_data/conf.json
+    fields:
+      - name: home
+        label: Accueil
+        fields:
+          - name: schedules
+            label: Horaires
+            type: object
+            required: true
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{section}"
+            fields:
+              - name: section
+                type: reference
+                label: Section
+                required: true
+                options:
+                  collection: disciplines
+                  value: "{fields.name}"
+                  label: "{fields.name}"
+              - { name: content, label: Contenu, type: text, required: true }
+              - { name: comment, label: Commentaire, type: string }
+          - name: maps-url
+            label: Lien maps de la salle
+            type: string
+            required: true
+          - name: maps-integration-source
+            label: Source de l’iframe de carte
+            type: string
+            required: true
+      - name: tarifs
+        label: Tarifs
+        type: object
+        required: true
+        list:
+          collapsible:
+            collapsed: true
+            summary: "{discipline}"
+        fields:
+          - name: discipline
+            label: Discipline
+            type: reference
+            required: true
+            options:
+              collection: disciplines
+              value: "{fields.name}"
+              label: "{fields.name}"
+          - name: ageBands
+            label: Tranches d’âge
+            type: object
+            required: true
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label}"
+            fields:
+              - name: label
+                label: Libellé
+                type: string
+                required: true
+              - name: cotisationClub
+                label: Cotisation club
+                type: number
+                required: true
+              - name: licenceAssurance
+                label: Licence et assurance
+                type: number
+                required: true
+      - name: footer
+        label: Bas-de-page
+        type: object
+        fields:
+          - name: addresses
+            label: Adresses web affiliées
+            type: object
+            fields:
+              - name: dojo
+                label: Dojo
+                type: string
+                required: true
+          - name: other-websites
+            label: Sites web affiliés
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label} / {url}"
+            fields:
+              - name: label
+                type: string
+                required: true
+              - name: url
+                type: string
+                required: true
+          - name: links
+            label: Liens utiles
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "{label} / {url}"
+            fields:
+              - name: label
+                type: string
+                required: true
+              - name: url
+                type: string
+                required: true
+          - name: facebook-link
+            label: Lien Facebook
+            type: string
+            required: true
+  - name: staff
+    label: Équipe
+    type: collection
+    path: src/content/staff
+    view:
+      fields: [name, image, clubRole, draft]
+    fields:
+      - { name: name, label: Nom, type: string, required: true }
+      - {
+          name: clubRole,
+          label: Rôle dans le club (laisser vide si aucun),
+          type: string,
+        }
+      - { name: image, label: Photo, type: image }
+      - { name: email, label: E-mail, type: string }
+      - { name: phone, label: Téléphone, type: string }
+      - { name: bio, label: Biographie, type: rich-text }
+      - { name: order, label: Ordre d’affichage, type: number, default: 0 }
+      - { name: draft, label: Brouillon, type: boolean, default: false }
+  - name: disciplines
+    label: Sections
+    type: collection
+    path: src/content/disciplines
+    view:
+      fields: [name, logo, coordinator, draft]
+    fields:
+      - { name: name, label: Nom, type: string, required: true }
+      - { name: draft, label: Brouillon, type: boolean, default: true }
+      - { name: logo, label: Logo, type: image }
+      - { name: summary, label: Description, type: string, required: true }
+      - { name: order, label: Ordre d’affichage, type: number }
+      - { name: contact, label: Contact, type: string }
+      - { name: schedule, label: Horaires, type: text }
+      - name: coordinator
+        label: Coordinateur
+        type: reference
+        required: true
+        options:
+          collection: staff
+          value: "{fields.name}"
+          label: "{fields.name}"
+      - name: enseignantsReferents
+        label: Enseignants référents
+        type: reference
+        list: true
+        options:
+          collection: staff
+          value: "{fields.name}"
+          label: "{fields.name}"
+      - name: enseignantsAssistants
+        label: Enseignants assistants
+        type: reference
+        list: true
+        options:
+          collection: staff
+          value: "{fields.name}"
+          label: "{fields.name}"
+      - { name: facebookLink, label: Lien Facebook (section), type: string }
+      - { name: instagramLink, label: Lien Instagram (section), type: string }
+      - { name: youtubeLink, label: Lien YouTube (section), type: string }
+      - { name: websiteLink, label: Site web (section), type: string }
+      - { name: body, label: Contenu, type: rich-text }
+  - name: events
+    label: Évènements
+    type: collection
+    path: src/content/events
+    view:
+      fields: [startDate, endDate, title, image, location, draft]
+      default:
+        sort: startDate
+        order: desc
+    fields:
+      - { name: title, label: Titre, type: string, required: true }
+      - { name: draft, label: Brouillon, type: boolean, default: true }
+      - { name: startDate, label: Date de début, type: date, required: true }
+      - { name: endDate, label: Date de fin, type: date, required: false }
+      - { name: time, label: Horaires, type: string }
+      - { name: location, label: Lieu, type: string, required: true }
+      - { name: summary, label: Description, type: string }
+      - { name: tags, label: Étiquettes, type: string, list: true }
+      - { name: image, label: Illustration, type: image, required: true }
+      - {
+          name: registrationLink,
+          label: Lien du formulaire d’inscription,
+          type: string,
+        }
+      - { name: body, label: Contenu, type: rich-text }
+  - name: articles
+    label: Articles
+    type: collection
+    path: src/content/articles
+    view:
+      fields: [pubDate, title, image, draft]
+      default:
+        sort: pubDate
+        order: desc
+    fields:
+      - { name: author, label: Auteur, type: string, required: true }
+      - name: pubDate
+        label: Date de publication
+        type: date
+        required: true
+      - { name: title, label: Titre, type: string, required: true }
+      - { name: draft, label: Mode brouillon, type: boolean, default: true }
+      - { name: tags, label: Étiquettes, type: string, list: true }
+      - { name: description, label: Description, type: string }
+      - { name: image, label: Illustration, type: image, required: true }
+      - { name: body, label: Contenu, type: rich-text, required: true }
+  - name: access-info
+    label: Conseils d’accès
+    type: file
+    path: src/content/pages/access-info.md
+    fields:
+      - { name: title, label: Titre, type: string }
+      - { name: description, label: Description, type: string }
+      - { name: body, label: Contenu, type: rich-text, required: true }

@@ -1,0 +1,82 @@
+---
+import ResponsiveImage from "./ResponsiveImage.astro";
+
+export interface Props {
+  title: string;
+  image?: {
+    src: string;
+    alt?: string;
+  };
+  dataSeries?: string;
+  dataSpeaker?: string;
+  dataDate?: string;
+  dataAuthor?: string;
+  dataTags?: string;
+  href?: string;
+  className?: string;
+  imageLayout?: "top" | "background";
+}
+
+const {
+  title,
+  image,
+  href,
+  className = "",
+  imageLayout = "top",
+  dataSeries,
+  dataSpeaker,
+  dataDate,
+  dataAuthor,
+  dataTags,
+} = Astro.props;
+const Element = href ? "a" : "div";
+---
+
+<Element
+  href={href}
+  aria-label={href ? title : undefined}
+  data-series={dataSeries}
+  data-speaker={dataSpeaker}
+  data-date={dataDate}
+  data-author={dataAuthor}
+  data-tags={dataTags}
+  class:list={[
+    "card group overflow-hidden",
+    { relative: imageLayout === "background" },
+    className,
+  ]}
+>
+  <div
+    class:list={[
+      "overflow-hidden relative",
+      {
+          "absolute inset-0": imageLayout === "background",
+          "h-56": imageLayout === "top",
+          "min-h-56": imageLayout === "top",
+      },
+    ]}
+  >
+
+    {
+      image?.src && (
+        <ResponsiveImage
+          src={image.src}
+          alt={image.alt ?? ""}
+          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+          width={640}
+          height={360}
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover object-center"
+        />
+      )
+    }
+  </div>
+
+  <div class:list={["p-5", { relative: imageLayout === "background" }]}>
+    <h3 class="mb-2 text-xl font-bold">{title}</h3>
+    <div class="text-gray-700">
+      <slot />
+    </div>
+  </div>
+</Element>

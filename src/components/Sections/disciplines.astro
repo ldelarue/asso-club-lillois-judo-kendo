@@ -1,0 +1,112 @@
+---
+import { getCollection } from "astro:content";
+import ResponsiveImage from "../UI/ResponsiveImage.astro";
+
+const all = await getCollection("disciplines", ({ data }) =>
+  import.meta.env.PROD ? !data.draft : true,
+);
+
+const ways = all.sort(
+  (a, b) =>
+    (a.data.order ?? 0) - (b.data.order ?? 0) ||
+    a.data.name.localeCompare(b.data.name),
+);
+---
+
+<section id="nos-disciplines" class="scroll-mt-20 py-16 bg-primary-50">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        Un Dojo, plusieurs Voies
+      </h2>
+      <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+        Le dojo propose une variété de disciplines pour répondre aux besoins et
+        aux intérêts de chacun. Que vous soyez débutant ou pratiquant avancé,
+        vous trouverez une discipline qui vous convient.
+      </p>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-8">
+      {
+        ways.map((way) => (
+          <a
+            href={`/${way.slug}`}
+            class="group
+          g-white rounded-lg shadow
+          flex flex-col overflow-hidden
+          hover:shadow-lg transition-shadow duration-200 motion-reduce:transition-none
+          min-h-[370px]
+          bg-white
+          w-full md:w-[calc(50%_-_1rem)] lg:w-[calc(33.333%_-_1.334rem)]
+          "
+          >
+            {way.data.logo && (
+              <div class="w-full h-[200px] overflow-hidden">
+                <ResponsiveImage
+                  src={way.data.logo}
+                  alt={way.data.name}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  width={640}
+                  height={400}
+                  loading="lazy"
+                  decoding="async"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            )}
+
+            <div class="p-4 flex flex-col flex-1">
+              <h3 class="text-xl font-semibold mb-2">{way.data.name}</h3>
+              <p class="flex-1 text-gray-700">{way.data.summary}</p>
+              <p class="text-primary-600 font-medium group-hover:underline group-hover:text-primary-700 mt-4">
+                En savoir plus →
+              </p>
+              {(way.data.coordinator || way.data.schedule) && (
+                <div class="mt-4 space-y-1 text-sm text-gray-600">
+                  {way.data.coordinator && (
+                    <div class="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4 mr-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                        />
+                      </svg>
+                      Enseignant référent : {way.data.coordinator}
+                    </div>
+                  )}
+                  {way.data.schedule && (
+                    <div class="flex items-center">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4 mr-1 align-text-top"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      {way.data.schedule}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,48 @@
+---
+import Button from "../UI/Button.astro";
+
+const {
+  title = "Envie de nous rejoindre ?",
+  subtitle = "Si vous êtes intéressé par nos activités ou si vous avez des questions, n'hésitez pas à nous contacter !",
+  primaryHref = "/inscriptions",
+  primaryText = "Je m'inscris",
+  secondaryHref = "/contact",
+  secondaryText = "Nous contacter",
+  backgroundImage = "/resources/temple.webp",
+  secondaryClass = "bg-white/10 text-white border-white hover:bg-white hover:text-gray-900 backdrop-blur-sm",
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-neutral-400 py-20 text-white">
+  <img
+    src={backgroundImage}
+    alt=""
+    width="1600"
+    height="900"
+    loading="lazy"
+    decoding="async"
+    class="absolute inset-0 h-full w-full object-cover object-center"
+  />
+  <div class="absolute inset-0 bg-black/60"></div>
+  <div class="container relative">
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-6 text-white">{title}</h2>
+      <p class="text-xl mb-8">{subtitle}</p>
+
+      <div class="flex flex-wrap justify-center gap-4">
+        <Button href={primaryHref} variant="primary" size="lg"
+          >{primaryText}</Button
+        >
+
+        <Button
+          href={secondaryHref}
+          variant="outline"
+          size="lg"
+          class={secondaryClass}
+        >
+          {secondaryText}
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

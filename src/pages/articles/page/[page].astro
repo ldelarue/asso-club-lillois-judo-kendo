@@ -1,0 +1,105 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Card from "../../../components/UI/Card.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import {
+  formatDate,
+  getArticlePath,
+} from "../../../utils/dateUtils";
+
+export async function getStaticPaths() {
+  const pageSize = 6;
+  const entries: CollectionEntry<"articles">[] = (
+    await getCollection("articles")
+  ).filter(({ data }) => (import.meta.env.PROD ? !data.draft : true));
+  const posts = entries.sort(
+    (
+      first: CollectionEntry<"articles">,
+      second: CollectionEntry<"articles">,
+    ) =>
+      second.data.pubDate.getTime() - first.data.pubDate.getTime(),
+  );
+  const pageCount = Math.ceil(posts.length / pageSize);
+
+  return Array.from({ length: Math.max(0, pageCount - 1) }, (_, index) => {
+    const page = index + 2;
+    const start = (page - 1) * pageSize;
+
+    return {
+      params: { page: String(page) },
+      props: {
+        posts: posts.slice(start, start + pageSize),
+        page,
+        pageCount,
+      },
+    };
+  });
+}
+
+interface Props {
+  posts: CollectionEntry<"articles">[];
+  page: number;
+  pageCount: number;
+}
+
+const { posts, page, pageCount } = Astro.props;
+const previousPath = page === 2 ? "/articles" : `/articles/page/${page - 1}`;
+const nextPath = page < pageCount ? `/articles/page/${page + 1}` : undefined;
+---
+
+<BaseLayout
+  title={`Articles - Page ${page}`}
+  canonicalUrl={new URL(`/articles/page/${page}`, Astro.site).toString()}
+>
+  <section class="bg-paper py-16">
+    <div class="container">
+      <header class="mb-10 text-center">
+        <h1 class="mb-3 text-3xl font-bold md:text-4xl">Articles</h1>
+        <p class="text-gray-600">Page {page} sur {pageCount}</p>
+      </header>
+
+      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <Card
+            title={post.data.title}
+            image={post.data.image
+              ? typeof post.data.image === "string"
+                ? { src: post.data.image, alt: post.data.title }
+                : { src: post.data.image.url, alt: post.data.image.alt }
+              : undefined}
+            href={getArticlePath(post)}
+          >
+            <p class="mb-2 text-sm text-gray-600">
+              <time datetime={post.data.pubDate.toISOString()}>
+                {formatDate(post.data.pubDate)}
+              </time>
+            </p>
+            <p class="mb-4 text-gray-700">{post.data.description}</p>
+            <p class="font-medium text-primary-600 group-hover:underline">
+              Lire l'article →
+            </p>
+          </Card>
+        ))}
+      </div>
+
+      <nav class="mt-10 flex items-center justify-center gap-4" aria-label="Pagination des articles">
+        <a
+          href={previousPath}
+          rel="prev"
+          class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+        >
+          Précédent
+        </a>
+        {nextPath && (
+          <a
+            href={nextPath}
+            rel="next"
+            class="rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          >
+            Suivant
+          </a>
+        )}
+      </nav>
+    </div>
+  </section>
+</BaseLayout>

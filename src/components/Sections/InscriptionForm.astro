@@ -1,0 +1,435 @@
+---
+import Button from "../UI/Button.astro";
+import conf from "../../utils/siteConfig";
+import { getCollection } from "astro:content";
+import { validateContentReferences } from "../../utils/contentReferences";
+
+interface Props {
+  templateUrl?: string;
+}
+const { templateUrl } = Astro.props;
+
+const inputClass =
+  "mt-2 w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-gray-900 shadow-sm focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500";
+const legendClass = "text-xl font-bold text-gray-900";
+const labelClass = "block text-sm font-semibold text-gray-800";
+const checkboxLabelClass = "ml-2 flex items-start gap-2 text-sm leading-5 text-gray-800";
+const checkboxInputClass =
+  "mt-0.5 h-4 w-4 shrink-0 rounded border-gray-300 text-primary-600 focus:ring-primary-500";
+const disciplines = await getCollection("disciplines");
+
+validateContentReferences({
+  source: "Configuration des tarifs",
+  values: conf.tarifs.map(({ discipline }) => discipline),
+  knownValues: disciplines.map(({ data }) => data.name),
+  requireAll: true,
+});
+
+const tarifs = conf.tarifs.map((configEntry) => {
+  const ageBands = configEntry.ageBands.map((band) => ({
+    label: band.label ?? "Tranche",
+    cotisationClub: Number(band.cotisationClub ?? 0),
+    licenceAssurance: Number(band.licenceAssurance ?? 0),
+    total: Number(band.cotisationClub ?? 0) + Number(band.licenceAssurance ?? 0),
+  }));
+
+  return {
+    discipline: configEntry.discipline,
+    ageBands,
+  };
+});
+const formatPrice = (value: number) =>
+  new Intl.NumberFormat("fr-FR", {
+    style: "currency",
+    currency: "EUR",
+    maximumFractionDigits: 0,
+  }).format(value);
+---
+
+<form id="inscription-form" class="space-y-10" novalidate data-template-url={templateUrl}>
+  <fieldset class="space-y-4 border-t border-gray-300 pt-6">
+    <legend class={legendClass}>Mentions légales</legend>
+    <p class="text-sm text-gray-700">
+      Lors du remplissage de ce formulaire en ligne, vos données restent dans votre navigateur. Elles ne sont ni automatiquement transmises,
+      ni enregistrées.
+    </p>
+    <p class="text-sm text-gray-700">
+      Une fois transmises au club par vos soins, les données sont collectées pour gérer votre adhésion, établir votre licence sportive, 
+      organiser les activités du club et, le cas échéant, satisfaire aux obligations d’assurance et de fédération. 
+      Leur traitement repose sur l'exécution de votre adhésion et de la relation sportive. 
+    </p>
+    <p class="text-sm text-gray-700">
+      Vous pouvez exercer vos droits d’accès, de rectification, d’effacement, d’opposition et de limitation 
+      <a
+        href="/contact"
+        class="text-primary-700 decoration-2 underline-offset-2 hover:text-primary-800 hover:underline"
+      >
+        en nous contactant.
+      </a>
+    </p>
+    <p class="mt-4 text-sm text-gray-700">
+      Si vous ne souhaitez pas remplir ce formulaire en ligne, des documents annexes sont disponibles en
+      <a
+        href="#documents-annexes"
+        class="text-primary-700 decoration-2 underline-offset-2 hover:text-primary-800 hover:underline">
+        bas de page
+      </a>
+        afin de télécharger le formulaire à remplir manuellement.
+    </p>
+  </fieldset>
+  <fieldset class="space-y-4 border-t border-gray-300 pt-6">
+    <legend class={legendClass}>Tarifs</legend>
+    <div class="grid gap-6 grid-cols-1">
+      {
+        tarifs.map((tarif) => (
+          <div class="p-4">
+            <h3 class="text-lg font-bold text-gray-900">{tarif.discipline}</h3>
+            <div class="mt-4 overflow-hidden rounded-md border border-gray-200">
+              <table class="min-w-full text-left text-sm text-gray-700">
+                <thead class="bg-gray-50 text-xs uppercase tracking-wide text-gray-600">
+                  <tr>
+                    <th class="px-3 py-2">Tranche d’âge</th>
+                    <th class="px-3 py-2">Cotisation club</th>
+                    <th class="px-3 py-2">Licence et assurance</th>
+                    <th class="px-3 py-2">Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    tarif.ageBands.map((band) => (
+                      <tr class="border-t border-gray-200">
+                        <td class="px-3 py-2 font-semibold">{band.label}</td>
+                        <td class="px-3 py-2">{formatPrice(band.cotisationClub)}</td>
+                        <td class="px-3 py-2">{formatPrice(band.licenceAssurance)}</td>
+                        <td class="px-3 py-2 font-semibold">{formatPrice(band.total)}</td>
+                      </tr>
+                    ))
+                  }
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+    <p class="text-sm text-gray-700 pt-6">
+      Ces tarifs ne doivent pas être un frein à l’adhésion au club. Si vous
+      souhaitez plus d’informations ou souhaitez discuter de votre situation,
+      nous vous invitons à contacter la direction.
+    </p>
+  </fieldset>
+  <br>
+  <p class="text-sm text-gray-700">
+    <span aria-hidden="true">*</span> Champs obligatoires
+  </p>
+  <fieldset class="space-y-4 border-t border-gray-300 pt-6">
+    <legend class={legendClass}>Discipline(s)</legend>
+    <p id="disciplines-help" class="text-sm text-gray-600">
+      Sélectionnez au moins une discipline. <span aria-hidden="true">*</span>
+    </p>
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-5">
+      {
+        [
+          ["judo", "Judo"],
+          ["kendo", "Kendo"],
+          ["iaido", "Iaïdo"],
+          ["aikido", "Aïkido"],
+          ["jodo", "Jodo"],
+        ].map(([value, label], index) => (
+          <label class="flex min-h-11 items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-semibold">
+            <input
+              class="h-4 w-4 rounded border-gray-300 text-primary-600 focus:ring-primary-500"
+              type="checkbox"
+              name="disciplines"
+              value={value}
+              aria-describedby="disciplines-help"
+              data-discipline={index === 0 ? "validation" : undefined}
+            />
+            {label}
+          </label>
+        ))
+      }
+    </div>
+  </fieldset>
+
+  <fieldset class="border-t border-gray-300 pt-6">
+    <legend class={legendClass}>Adhérent</legend>
+    <div class="mt-4 grid gap-5 sm:grid-cols-2">
+      <label class={labelClass}
+        >Nom <span aria-hidden="true">*</span><input
+          class={inputClass}
+          name="nom"
+          autocomplete="family-name"
+          required
+        /></label
+      >
+      <label class={labelClass}
+        >Prénom <span aria-hidden="true">*</span><input
+          class={inputClass}
+          name="prenom"
+          autocomplete="given-name"
+          required
+        /></label
+      >
+      <label class={labelClass}
+        >Date de naissance <span aria-hidden="true">*</span><input
+          class={inputClass}
+          type="date"
+          name="dateNaissance"
+          autocomplete="bday"
+          required
+        /></label
+      >
+      <label class={labelClass}
+        >Lieu de naissance <span aria-hidden="true">*</span><input
+          class={inputClass}
+          name="lieuNaissance"
+          required
+        /></label
+      >
+      <label class={`${labelClass} sm:col-span-2`}
+        >Adresse <span aria-hidden="true">*</span><input
+          class={inputClass}
+          name="adresse"
+          autocomplete="street-address"
+          required
+        /></label
+      >
+      <label class={labelClass}
+        >Courriel <span aria-hidden="true">*</span><input
+          class={inputClass}
+          type="email"
+          name="courriel"
+          autocomplete="email"
+          required
+        /></label
+      >
+      <label class={labelClass}
+        >Téléphone <span aria-hidden="true">*</span><input
+          class={inputClass}
+          type="tel"
+          name="telephone"
+          autocomplete="tel"
+          inputmode="tel"
+          pattern="[0-9+().\s-]{8,15}"
+          title="Saisissez un numéro de téléphone valide"
+          required
+        /></label
+      >
+      <label class={labelClass}
+        >Nationalité <span aria-hidden="true">*</span><input
+          class={inputClass}
+          name="nationalite"
+          autocomplete="country-name"
+          required
+        /></label
+      >
+      <label class={labelClass}
+        >Profession<input
+          class={inputClass}
+          name="profession"
+          autocomplete="organization-title"
+        /></label
+      >
+      <label class={labelClass}
+        >Grade(s)<input class={inputClass} name="grades" /></label
+      >
+      <label class={labelClass}
+        >Numéro de licence<input
+          class={inputClass}
+          name="numeroLicence"
+        /></label
+      >
+    </div>
+  </fieldset>
+
+  <fieldset class="space-y-5 border-t border-gray-300 pt-6">
+    <legend class={legendClass}>Autorisations et informations</legend>
+    <label class={checkboxLabelClass}>
+      <input class={checkboxInputClass} type="checkbox" name="droitImage" />
+      Je donne droit à l’image dans le contexte des activités du club.
+    </label>
+    <label class={checkboxLabelClass}>
+      <input class={checkboxInputClass} type="checkbox" name="whatsapp" />
+      J’accepte de recevoir des informations du club par WhatsApp.
+    </label>
+    <label class={checkboxLabelClass}>
+      <input class={checkboxInputClass} type="checkbox" name="certificatMedical" required />
+      Je m'engage à fournir un certificat médical ou un questionnaire de santé rempli et signé par un médecin. <span aria-hidden="true">*</span>
+    </label>
+    <label class={checkboxLabelClass}>
+      <input class={checkboxInputClass} type="checkbox" name="inscritMineur" />
+      J’atteste que l’inscrit est mineur.
+    </label>
+    <div id="champs-parentaux" hidden>
+      <div class="grid gap-5 border-t border-gray-200 pt-5 sm:grid-cols-2">
+        <h3 class="text-lg font-bold text-gray-900 sm:col-span-2">
+          Autorisation parentale
+        </h3>
+        <label class={labelClass}
+          >Nom du représentant légal <span aria-hidden="true">*</span><input
+            class={inputClass}
+            name="responsableNom"
+            autocomplete="name"
+          /></label
+        >
+      </div>
+    </div>
+  </fieldset>
+
+  <div class="border-t border-gray-300 pt-6">
+    <Button
+      type="submit"
+      size="lg"
+      class="w-full sm:w-auto"
+      ariaLabel="Générer et télécharger la demande d’inscription"
+    >
+      <span data-button-label>Générer et télécharger le PDF</span>
+    </Button>
+    <p
+      id="inscription-status"
+      class="mt-4 min-h-6 text-sm font-semibold"
+      role="status"
+      aria-live="polite"
+    ></p>
+  </div>
+</form>
+
+<script>
+  import {
+    generateInscriptionPdf,
+    type Discipline,
+    type InscriptionData,
+  } from "../../utils/inscriptionPdf";
+
+  const form = document.querySelector<HTMLFormElement>("#inscription-form");
+  const status = document.querySelector<HTMLElement>("#inscription-status");
+  const minorInput = form?.querySelector<HTMLInputElement>(
+    'input[name="inscritMineur"]',
+  );
+  const parentFields = document.querySelector<HTMLElement>("#champs-parentaux");
+  const disciplineInputs = Array.from(
+    document.querySelectorAll<HTMLInputElement>('input[name="disciplines"]'),
+  );
+  const phoneInput = form?.querySelector<HTMLInputElement>(
+    'input[name="telephone"]',
+  );
+
+  function value(data: FormData, name: string): string {
+    return String(data.get(name) ?? "");
+  }
+
+  function isChecked(data: FormData, name: string): boolean {
+    return data.get(name) === "on";
+  }
+
+  function validateDisciplines(): void {
+    const message = disciplineInputs.some((input) => input.checked)
+      ? ""
+      : "Sélectionnez au moins une discipline.";
+    disciplineInputs[0]?.setCustomValidity(message);
+    disciplineInputs.forEach((input) =>
+      input.setAttribute("aria-invalid", String(Boolean(message))),
+    );
+  }
+
+  function validatePhone(): void {
+    const value = phoneInput?.value.trim() ?? "";
+    const normalized = value.replace(/[.\s()-]/g, "");
+    const isValid = /^\+?[0-9]{8,15}$/.test(normalized);
+    phoneInput?.setCustomValidity(
+      isValid ? "" : "Saisissez un numéro de téléphone valide.",
+    );
+    phoneInput?.setAttribute("aria-invalid", String(!isValid));
+  }
+
+  function updateParentFields(): void {
+    const enabled = minorInput?.checked ?? false;
+    if (parentFields) parentFields.hidden = !enabled;
+    parentFields
+      ?.querySelectorAll<HTMLInputElement>("input")
+      .forEach((input) => {
+        input.required = enabled;
+      });
+  }
+
+  disciplineInputs.forEach((input) =>
+    input.addEventListener("change", validateDisciplines),
+  );
+  phoneInput?.addEventListener("input", validatePhone);
+  minorInput?.addEventListener("change", updateParentFields);
+  validateDisciplines();
+  validatePhone();
+  updateParentFields();
+
+  form?.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    validateDisciplines();
+    validatePhone();
+    if (!form.reportValidity()) {
+      form.querySelector<HTMLElement>(":invalid")?.focus();
+      return;
+    }
+
+    const submitButton = form.querySelector<HTMLButtonElement>(
+      'button[type="submit"]',
+    );
+    const buttonLabel = submitButton?.querySelector<HTMLElement>(
+      "[data-button-label]",
+    );
+    const data = new FormData(form);
+    const inscription: InscriptionData = {
+      disciplines: data.getAll("disciplines").map(String) as Discipline[],
+      nom: value(data, "nom"),
+      prenom: value(data, "prenom"),
+      dateNaissance: value(data, "dateNaissance"),
+      lieuNaissance: value(data, "lieuNaissance"),
+      adresse: value(data, "adresse"),
+      courriel: value(data, "courriel"),
+      telephone: value(data, "telephone"),
+      nationalite: value(data, "nationalite"),
+      profession: value(data, "profession"),
+      grades: value(data, "grades"),
+      numeroLicence: value(data, "numeroLicence"),
+      droitImage: data.has("droitImage"),
+      whatsapp: isChecked(data, "whatsapp"),
+      autorisationParentale: isChecked(data, "inscritMineur"),
+      responsableNom: value(data, "responsableNom"),
+      enfantNom: [value(data, "prenom"), value(data, "nom")]
+        .filter(Boolean)
+        .join(" ")
+        .trim(),
+      enfantDateNaissance: value(data, "dateNaissance"),
+    };
+
+    if (submitButton) submitButton.disabled = true;
+    if (buttonLabel) buttonLabel.textContent = "Génération en cours…";
+    form.setAttribute("aria-busy", "true");
+    if (status) {
+      status.textContent = "Génération du PDF en cours.";
+      status.className = "mt-4 min-h-6 text-sm font-semibold";
+    }
+
+    try {
+      await generateInscriptionPdf(inscription, form.dataset.templateUrl);
+      if (status) {
+        status.textContent = "Le PDF a été généré et téléchargé.";
+        status.className = "mt-4 min-h-6 text-sm font-semibold";
+      }
+    } catch (error) {
+      console.error(error);
+      if (status) {
+        status.textContent =
+          error instanceof Error
+            ? error.message
+            : "Impossible de générer le PDF. Réessayez.";
+        status.className = "mt-4 min-h-6 text-sm font-semibold text-red-700";
+      }
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+      if (buttonLabel)
+        buttonLabel.textContent = "Générer et télécharger le PDF";
+      form.removeAttribute("aria-busy");
+    }
+  });
+</script>

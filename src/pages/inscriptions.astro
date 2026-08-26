@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/UI/Button.astro";
+import InscriptionForm from "../components/Sections/InscriptionForm.astro";
+import { INSCRIPTION_TEMPLATE_FILENAME_PREFIX } from "../utils/inscriptionPdf";
+import { readdirSync } from "fs";
+import { join } from "path";
+
+const inscriptionsDir = join(process.cwd(), "public/uploads/inscriptions");
+const pdfFiles = readdirSync(inscriptionsDir).filter((f) =>
+  f.toLowerCase().endsWith(".pdf")
+);
+
+const demandeFile = pdfFiles.find((f) =>
+  f.startsWith(INSCRIPTION_TEMPLATE_FILENAME_PREFIX)
+);
+const templateUrl = demandeFile
+  ? `/uploads/inscriptions/${encodeURIComponent(demandeFile)}`
+  : undefined;
+---
+
+<BaseLayout title="Inscription">
+  <section class="py-16 bg-paper">
+    <div class="container max-w-4xl">
+      <div class="text-center mb-12">
+        <h1 class="mb-5">Demande d’inscription</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Remplissez le formulaire pour télécharger votre demande préremplie.
+          Vous devrez ensuite la dater et la signer.
+        </p>
+      </div>
+      <div
+        class="rounded-lg border border-gray-200 bg-white p-5 shadow-lg sm:p-8 md:p-10"
+      >
+        <InscriptionForm templateUrl={templateUrl} />
+      </div>
+    </div>
+    <div id="documents-annexes" class="container max-w-4xl mt-8">
+      <div class="rounded-lg border border-gray-200 bg-white p-5 shadow-lg sm:p-8 md:p-10">
+        <h2 class="text-xl font-semibold text-gray-700 mb-4">Documents annexes</h2>
+        <ul class="flex flex-col gap-3">
+          {pdfFiles.map((filename) => (
+            <li>
+              <a
+                href={`/uploads/inscriptions/${encodeURIComponent(filename)}`}
+                download
+                class="inline-flex items-center gap-2 font-medium text-primary-700 decoration-2 underline-offset-2 hover:text-primary-800 hover:underline"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="18"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+                {filename}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section class="py-16 bg-white">
+    <div class="container">
+      <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Pour finaliser votre demande d'inscription</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+          Datez et signez le document téléchargé, puis remettez-le avec les
+          pièces demandées à votre enseignant qui validera les conditions d'admission.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4 mt-8">
+          <Button href="/contact" variant="outline" size="lg">
+            Nous contacter
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
