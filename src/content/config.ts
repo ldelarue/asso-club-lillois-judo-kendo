@@ -10,7 +10,6 @@ const staffCollection = defineCollection({
     phone: z.string().optional(),
     bio: z.string().optional(), // Short bio in frontmatter
     order: z.number().default(0),
-    draft: z.boolean().default(false),
   }),
 });
 

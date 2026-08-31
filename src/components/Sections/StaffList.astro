@@ -4,9 +4,7 @@ import defaultProfile from "../../assets/default-profile.png";
 import ResponsiveImage from "../UI/ResponsiveImage.astro";
 const { showAll = true, limit = 6 } = Astro.props;
 
-const allStaff = await getCollection("staff", ({ data }) =>
-  import.meta.env.PROD ? !data.draft : true,
-);
+const allStaff = await getCollection("staff");
 const disciplines = await getCollection("disciplines", ({ data }) =>
   import.meta.env.PROD ? !data.draft : true,
 );

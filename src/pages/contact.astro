@@ -10,9 +10,7 @@ const disciplines = await getCollection("disciplines", ({ data }) =>
 const sortedDisciplines = disciplines.sort(
   (first, second) => (first.data.order ?? 99) - (second.data.order ?? 99),
 );
-const allStaff = await getCollection("staff", ({ data }) =>
-  import.meta.env.PROD ? !data.draft : true,
-);
+const allStaff = await getCollection("staff");
 const staffByName = new Map(
   allStaff.map((member) => [member.data.name, member]),
 );

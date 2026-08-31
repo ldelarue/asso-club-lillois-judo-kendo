@@ -141,7 +141,7 @@ content:
     type: collection
     path: src/content/staff
     view:
-      fields: [name, image, clubRole, draft]
+      fields: [name, image, clubRole]
     fields:
       - { name: name, label: Nom, type: string, required: true }
       - {
@@ -154,7 +154,6 @@ content:
       - { name: phone, label: Téléphone, type: string }
       - { name: bio, label: Biographie, type: rich-text }
       - { name: order, label: Ordre d’affichage, type: number, default: 0 }
-      - { name: draft, label: Brouillon, type: boolean, default: false }
   - name: disciplines
     label: Sections
     type: collection
