@@ -176,9 +176,9 @@ try {
         <h2 class="text-3xl md:text-4xl font-bold mb-4">Accès à la salle</h2>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div class="grid grid-cols-1 gap-8 items-stretch md:grid-cols-2">
         <div
-          class="relative flex h-96 items-center justify-center overflow-hidden rounded-lg bg-neutral-400 p-8 text-center"
+          class="relative flex min-h-96 items-center justify-center overflow-hidden rounded-lg bg-neutral-400 p-8 text-center"
           data-google-map={conf.home["maps-integration-source"]}
         >
           <img
@@ -208,8 +208,20 @@ try {
         </div>
 
         <div class="bg-white p-8 rounded-lg shadow-md">
-            <div class="text-gray-700 prose max-w-none [&>*:first-child]:mt-0 [&_p]:my-1 [&_p]:leading-snug [&_h4]:my-2">
-              <p class="font-semibold text-gray-900 mb-3">
+          <figure class="relative mx-auto mb-6 w-[70%]">
+            <img
+              src="/resources/salle.jpeg"
+              alt="La salle du club de kendo"
+              loading="lazy"
+              decoding="async"
+              class="w-full rounded-md"
+            />
+            <figcaption class="absolute bottom-1 right-2 text-[10px] font-normal italic text-white/80 drop-shadow">
+              © Ville de Lille
+            </figcaption>
+          </figure>
+          <div class="text-gray-700 prose max-w-none [&>*:first-child]:mt-0 [&_p]:my-1 [&_p]:leading-snug [&_h4]:my-2">
+              <p class="mb-3 text-center font-semibold text-gray-900">
                 {conf.footer.addresses.dojo}
               </p>
               {
@@ -219,17 +231,17 @@ try {
                   <Fragment set:html={conf.home["access-info"] || ""} />
                 )
               }
-            </div>
+          </div>
 
-            <div class="mt-6">
-              <Button
-                href={conf.home["maps-url"]}
-                target="_blank"
-                variant="outline"
-              >
-                Itinéraires via Google Maps
-              </Button>
-            </div>
+          <div class="mt-6">
+            <Button
+              href={conf.home["maps-url"]}
+              target="_blank"
+              variant="outline"
+            >
+              Itinéraires via Google Maps
+            </Button>
+          </div>
         </div>
       </div>
     </div>

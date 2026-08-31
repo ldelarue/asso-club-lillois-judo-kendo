@@ -10,7 +10,3 @@ Des parkings sont disponibles à proximité de la salle. Veuillez vérifier les 
 ### Métro
 
 Ligne 2 (rouge) - Station "Lille Grand Palais", puis 5 minutes à pied.
-
-### Accessibilité
-
-Le bâtiment est entièrement accessible aux personnes à mobilité réduite, avec des rampes et des ascenseurs disponibles.
