@@ -10,9 +10,10 @@ order: 1
 contact: contact@kendo-lille.com
 coordinator: Jean-Paul Carpentier
 enseignantsReferents:
-  - François Bourrel
   - Jean-Paul Carpentier
   - Yves Mairesse
+enseignantsAssistants:
+  - François Bourrel
 facebookLink: https://www.facebook.com/p/kendo-lille-100064588397941/
 ---
 # En quelques mots

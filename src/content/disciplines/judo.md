@@ -11,4 +11,18 @@ enseignantsReferents:
 draft: false
 ---
 
-Des informations complémentaires sont disponibles sur le site: tarifs, horaires, calendriers, adresse, vie associative, etc.
+Le judo est un art martial traditionnel qui permet aux enfants de développer leur équilibre, leur confiance et le respect des autres, à travers une pratique adaptée à leur âge.
+
+## Inscriptions et renseignements
+
+Les cours de judo sont uniquement destinés aux enfants. Il est impératif de remplir une feuille d'inscription avant la première séance, y compris pour une séance d'essai. Les inscriptions sont possibles tout au long de l'année.
+
+Le règlement de la licence et de la cotisation peut s'effectuer :
+
+- Par chèque.
+- Par chèque-vacances.
+- Par virement.
+- Par coupon sport jaune pour les enfants lillois. Renseignez-vous auprès de votre mairie de quartier.
+- Les aides de l'État attribuées selon les ressources, notamment le dispositif « Pass'Sport », sont acceptées.
+
+Pour tout renseignement complémentaire ou demande spécifique, adressez-vous au professeur avant ou après les cours.

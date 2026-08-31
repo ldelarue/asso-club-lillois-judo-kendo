@@ -246,22 +246,27 @@ const formatPrice = (value: number) =>
 
   <fieldset class="space-y-5 border-t border-gray-300 pt-6">
     <legend class={legendClass}>Autorisations et informations</legend>
-    <label class={checkboxLabelClass}>
-      <input class={checkboxInputClass} type="checkbox" name="droitImage" />
-      Je donne droit à l’image dans le contexte des activités du club.
-    </label>
-    <label class={checkboxLabelClass}>
-      <input class={checkboxInputClass} type="checkbox" name="whatsapp" />
-      J’accepte de recevoir des informations du club par WhatsApp.
-    </label>
-    <label class={checkboxLabelClass}>
-      <input class={checkboxInputClass} type="checkbox" name="certificatMedical" required />
-      Je m'engage à fournir un certificat médical ou un questionnaire de santé rempli et signé par un médecin. <span aria-hidden="true">*</span>
-    </label>
-    <label class={checkboxLabelClass}>
-      <input class={checkboxInputClass} type="checkbox" name="inscritMineur" />
-      J’atteste que l’inscrit est mineur.
-    </label>
+    <div class="space-y-5">
+      <label class={checkboxLabelClass}>
+        <input class={checkboxInputClass} type="checkbox" name="certificatMedical" required />
+        Je m'engage à fournir un certificat médical ou un questionnaire de santé rempli et signé par un médecin. <span aria-hidden="true">*</span>
+      </label>
+    </div>
+    <div class="space-y-5">
+      <p class="font-semibold text-gray-900">Facultatifs</p>
+      <label class={checkboxLabelClass}>
+        <input class={checkboxInputClass} type="checkbox" name="droitImage" />
+        Je donne droit à l’image dans le contexte des activités du club.
+      </label>
+      <label class={checkboxLabelClass}>
+        <input class={checkboxInputClass} type="checkbox" name="whatsapp" />
+        J’accepte de recevoir des informations du club par WhatsApp.
+      </label>
+      <label class={checkboxLabelClass}>
+        <input class={checkboxInputClass} type="checkbox" name="inscritMineur" />
+        J’atteste que l’inscrit est mineur.
+      </label>
+    </div>
     <div id="champs-parentaux" hidden>
       <div class="grid gap-5 border-t border-gray-200 pt-5 sm:grid-cols-2">
         <h3 class="text-lg font-bold text-gray-900 sm:col-span-2">
