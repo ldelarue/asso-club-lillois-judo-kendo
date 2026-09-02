@@ -1,4 +1,4 @@
 ---
 name: Yves Mairesse
-bio: "Enseignant"
+bio: "7ème Dan Kendo"
 ---
