@@ -1,16 +1,16 @@
 ---
 name: Judo
-order: 4
+draft: false
 logo: /uploads/disciplines/judo.jpg
 summary: Le judo (柔道, « voie de la souplesse ») est un art martial, créé au
   Japon en 1882 par Jigorō Kanō en tant que pédagogie physique, mentale et
   morale
+order: 4
+contact: francoisbourrel1@gmail.com
 coordinator: François Bourrel
 enseignantsReferents:
   - François Bourrel
-draft: false
 ---
-
 Le judo est un art martial traditionnel qui permet aux enfants de développer leur équilibre, leur confiance et le respect des autres, à travers une pratique adaptée à leur âge.
 
 ## Inscriptions et renseignements
