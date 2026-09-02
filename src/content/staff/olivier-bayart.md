@@ -1,8 +1,6 @@
 ---
-name: "Olivier Bayart"
-bio: "Jodo Renshi 6ème Dan"
+name: Olivier Bayart
+email: jodolille@gmail.com
+bio: Jodo Renshi 6ème Dan
+order: 0
 ---
-
-Jodo Renshi 6ème Dan
-Kendo 5ème Dan
-Iaïdo 4ème Dan
