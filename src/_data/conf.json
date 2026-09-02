@@ -25,8 +25,7 @@
       }
     ],
     "maps-url": "https://maps.google.com/?q=Complexe+Sportif+Halle+Saint+Sauveur,+266+Rue+Camille+Guérin,+59000+Lille",
-    "maps-integration-source": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12213.759842872885!2d3.050779927431935!3d50.6305517035104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d592b7f22db3%3A0xd40621ee33b88569!2s266%20Rue%20Camille%20Gu%C3%A9rin%2C%2059800%20Lille!5e0!3m2!1sfr!2sfr!4v1785248300523!5m2!1sfr!2sfr",
-    "access-info": "### Voiture\n\nDes parkings sont disponibles à proximité de la salle. Veuillez vérifier les panneaux de signalisation pour les restrictions de stationnement.\n\n### Métro\n\nLigne 2 (rouge) - Station \"Lille Grand Palais\", puis 5 minutes à pied.\n\n### Accessibilité\n\nLe bâtiment est entièrement accessible aux personnes à mobilité réduite, avec des rampes et des ascenseurs disponibles."
+    "maps-integration-source": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d12213.759842872885!2d3.050779927431935!3d50.6305517035104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47c2d592b7f22db3%3A0xd40621ee33b88569!2s266%20Rue%20Camille%20Gu%C3%A9rin%2C%2059800%20Lille!5e0!3m2!1sfr!2sfr!4v1785248300523!5m2!1sfr!2sfr"
   },
   "tarifs": [
     {
@@ -117,8 +116,7 @@
   ],
   "footer": {
     "addresses": {
-      "dojo": "Complexe Sportif Halle Saint Sauveur, 266 Rue Camille Guérin, 59000 Lille",
-      "headquarters": "81 rue Pasteur, 59155 Faches-Thumesnil"
+      "dojo": "Complexe Sportif Halle Saint Sauveur, 266 Rue Camille Guérin, 59000 Lille"
     },
     "other-websites": [
       {
@@ -132,6 +130,18 @@
       {
         "label": "butokukan.be",
         "url": "https://butokukan.be/fr/"
+      },
+      {
+        "label": "cnkendo-dr.com",
+        "url": "https://cnkendo-dr.com/"
+      },
+      {
+        "label": "ffabaikido.com",
+        "url": "https://www.ffabaikido.com/fr/"
+      },
+      {
+        "label": "aikido-hdf.fr",
+        "url": "https://aikido-hdf.fr/"
       }
     ],
     "links": [
