@@ -6,9 +6,9 @@ summary: L’Aïkido (合気道, « voie de la concordance des énergies ») est
   martial d’origine japonaise, créé par Morihei Ueshiba au milieu du XXe siècle.
 order: 5
 contact: aikido.3anguilles@gmail.com
-coordinator: Jean-Philippe Wahl
+coordinator: Jean Philippe Wahl
 enseignantsReferents:
-  - Jean-Philippe Wahl
+  - Jean Philippe Wahl
   - Julien Dhuy
 enseignantsAssistants:
   - Pierre-Emmanuel Pessemier

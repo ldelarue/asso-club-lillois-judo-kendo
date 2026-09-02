@@ -8,9 +8,9 @@ summary: Le Kendo (剣道, « voie du sabre ») est l’escrime japonaise où le
   Koryu.
 order: 1
 contact: contact@kendo-lille.com
-coordinator: Jean-Paul Carpentier
+coordinator: Jean Paul Carpentier
 enseignantsReferents:
-  - Jean-Paul Carpentier
+  - Jean Paul Carpentier
   - Yves Mairesse
 enseignantsAssistants:
   - François Bourrel
