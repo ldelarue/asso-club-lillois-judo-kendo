@@ -12,8 +12,6 @@ coordinator: Jean Paul Carpentier
 enseignantsReferents:
   - Jean Paul Carpentier
   - Yves Mairesse
-enseignantsAssistants:
-  - François Bourrel
 facebookLink: https://www.facebook.com/p/kendo-lille-100064588397941/
 ---
 ## En quelques mots

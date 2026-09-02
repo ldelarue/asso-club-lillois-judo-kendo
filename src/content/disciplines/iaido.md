@@ -9,6 +9,8 @@ summary:
 coordinator: Patrick Vigneau
 enseignantsReferents:
   - Patrick Vigneau
+enseignantsAssistants:
+  - François Bourrel
 draft: false
 ---
 
