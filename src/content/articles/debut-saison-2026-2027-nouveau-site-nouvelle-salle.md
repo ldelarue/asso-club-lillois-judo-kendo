@@ -11,11 +11,10 @@ image: /uploads/articles/capture-decran-2026-06-11-a-15.10.34-moyenne.jpeg
 
 Pour cette saison 2026-2027, le Club Lillois de Judo Kendo a déménagé de la salle Maryvonne Dupureur, à Lille. Nous disposons désormais d'une nouvelle salle, avec plusieurs locaux pour entreposer nos équipements, ainsi que d'installations neuves et durables.
 
-![Intérieur de la nouvelle salle](/uploads/articles/capture-decran-2026-06-11-a-15.10.34-moyenne.jpeg)
-
 ![Extérieur de la nouvelle salle](/uploads/articles/capture-decran-2026-06-11-a-15.10.47-moyenne.jpeg)
 
-© Ville de Lille
+© Ville de Lille  
+
 
 Nous remercions chaleureusement la Ville de Lille pour son aide dans ce projet et pour son soutien au développement de nos activités. La section kendo ont pu inaugurer les lieux avec leur premier entrainement !  
 
