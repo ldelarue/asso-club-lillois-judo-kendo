@@ -1,31 +1,23 @@
 ---
-title: "Début de saison 2026-2027 : nouveau site web et nouvelle salle !"
+author: Louis Delarue
 pubDate: 2026-08-31
-description: ""
-author: "Louis Delarue"
-image:
-  url: /uploads/articles/capture-decran-2026-06-11-a-15.10.34-moyenne.jpeg
-  alt: "Intérieur de la nouvelle salle du Club Lillois de Judo Kendo"
+title: "Début de saison 2026-2027 : nouveau site web et nouvelle salle !"
+draft: false
 tags:
   - vie-du-club
-draft: false
+image: /uploads/articles/capture-decran-2026-06-11-a-15.10.34-moyenne.jpeg
 ---
-
 ## Une nouvelle salle pour la saison
 
 Pour cette saison 2026-2027, le Club Lillois de Judo Kendo a déménagé de la salle Maryvonne Dupureur, à Lille. Nous disposons désormais d'une nouvelle salle, avec plusieurs locaux pour entreposer nos équipements, ainsi que d'installations neuves et durables.
 
-Nous remercions chaleureusement la Ville de Lille pour son aide dans ce projet et pour son soutien au développement de nos activités.
+![Intérieur de la nouvelle salle](/uploads/articles/capture-decran-2026-06-11-a-15.10.34-moyenne.jpeg)
 
-<div class="not-prose grid grid-cols-1 gap-4 md:grid-cols-2">
-  <figure class="m-0">
-    <img class="h-full w-full rounded-lg object-cover" src="/uploads/articles/capture-decran-2026-06-11-a-15.10.34-moyenne.jpeg" alt="Intérieur de la nouvelle salle" loading="lazy" />
-  </figure>
-  <figure class="m-0">
-    <img class="h-full w-full rounded-lg object-cover" src="/uploads/articles/capture-decran-2026-06-11-a-15.10.47-moyenne.jpeg" alt="Extérieur de la nouvelle salle" loading="lazy" />
-  </figure>
-  <span class="text-center text-sm text-gray-600 md:col-span-2">© Ville de Lille</span>
-</div>
+![Extérieur de la nouvelle salle](/uploads/articles/capture-decran-2026-06-11-a-15.10.47-moyenne.jpeg)
+
+© Ville de Lille
+
+Nous remercions chaleureusement la Ville de Lille pour son aide dans ce projet et pour son soutien au développement de nos activités. La section kendo ont pu inaugurer les lieux avec leur premier entrainement !  
 
 ## Un nouveau site web
 
