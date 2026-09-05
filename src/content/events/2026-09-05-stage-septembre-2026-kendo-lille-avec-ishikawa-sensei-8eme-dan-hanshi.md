@@ -1,6 +1,6 @@
 ---
 title: Stage septembre 2026 kendo Lille avec ISHIKAWA Sensei, 8ème dan hanshi
-draft: true
+draft: false
 startDate: 2026-09-22
 endDate: 2026-09-29
 time: 18:00 à 20:00
