@@ -14,6 +14,11 @@ enseignantsReferents:
 enseignantsAssistants:
   - Yves Mairesse
   - Jérôme Kozak
+  - Stéphanie De Backer
+  - Cyrian Pitteloud
+  - Patrick Vigneau
+  - François Bourrel
+  - Jean-Philippe Jourdan
 facebookLink: https://www.facebook.com/p/kendo-lille-100064588397941/
 ---
 ## En quelques mots
