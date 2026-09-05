@@ -11,7 +11,9 @@ contact: contact@kendo-lille.com
 coordinator: Jean Paul Carpentier
 enseignantsReferents:
   - Jean Paul Carpentier
+enseignantsAssistants:
   - Yves Mairesse
+  - Jérôme Kozak
 facebookLink: https://www.facebook.com/p/kendo-lille-100064588397941/
 ---
 ## En quelques mots
@@ -21,15 +23,19 @@ Le Kendo est l’escrime japonaise (pratiquée anciennement par les Samouraï) o
 L’équipement protecteur est prêté dans les premiers temps, dès que le pratiquant
 est apte à les revêtir. Il ne faut savoir que le kendo se veut avant tout d’élever l’individu en reflétant la vraie nature du bushido et toute pratique doit s’efforcer de polir les vertus traditionnelles.
 
-<div class="text-center">
-  <p>Chugi – Fidélité – Loyauté</p>
-  <p>Gi – Honneur – Rectitude – Décision Juste</p>
-  <p>Jin – Bienveillance – Générosité</p>
-  <p>Makoto – Honnêteté</p>
-  <p>Meiyo – Honneur</p>
-  <p>Rei – Respect – Courtoisie – Étiquette</p>
-  <p>Yu – Courage</p>
-</div>
+Chugi – Fidélité – Loyauté
+
+Gi – Honneur – Rectitude – Décision Juste
+
+Jin – Bienveillance – Générosité
+
+Makoto – Honnêteté
+
+Meiyo – Honneur
+
+Rei – Respect – Courtoisie – Étiquette
+
+Yu – Courage
 
 Les frappes sont établies par l’intermédiaire des shinaïs, qui, s’ils sont bien entretenus, représentent un danger maîtrisé. Afin de limiter les risques d’accidents, nous tenons à rappeler la nécessité d’avoir 2 shinaïs en bon état à disposition et d’assurer l’entretien constant de ces derniers. En effet, une simple écharde peut représenter un désagrément certain pour les pratiquants qui se blessent avec. Il s’agit donc d’entretenir son shinaï avec un couteau spécialisé à cet effet ou du papier de verre afin de supprimer les ébarbures ou autres aspérités. Mais une brisure ou une fissure peut représenter un véritable danger pour celui qui porte l’utchi comme pour celui qui le reçoit. Il est donc impératif de
 changer de shinaï si l’une d’entre elles apparaît (et parfois elles sont bien cachées) pendant un entraînement.Des ateliers de réparation de shinaï sont proposés une à deux fois par an sur le dojo.
