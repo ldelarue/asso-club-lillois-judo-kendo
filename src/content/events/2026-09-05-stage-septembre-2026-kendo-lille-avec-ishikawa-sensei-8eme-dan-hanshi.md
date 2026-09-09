@@ -9,7 +9,7 @@ summary: Préinscription obligatoire
 image: /uploads/shinai-800x533.jpg
 registrationLink: https://forms.gle/M8UhAzxjvMEbFbfd9
 ---
-Ishikawa Sensei, 8ème dan hanshi, nous rend visite au dojo pour un stage kendo. Afin de de l'accueillir au mieux, vous trouverez ci-dessous quelques informations utiles.
+Ishikawa Sensei, 8ème dan hanshi, nous rend visite au dojo pour un stage kendo. Afin de l'accueillir au mieux, vous trouverez ci-dessous quelques informations utiles.
 
 ### Dates
 
