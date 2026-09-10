@@ -215,7 +215,13 @@ content:
       - { name: location, label: Lieu, type: string, required: true }
       - { name: summary, label: Description, type: string }
       - { name: tags, label: Étiquettes, type: string, list: true }
-      - { name: image, label: Illustration, type: image, required: true }
+      - {
+          name: image,
+          label: Illustration,
+          type: image,
+          required: true,
+          options: { media: images, path: public/uploads/events },
+        }
       - {
           name: registrationLink,
           label: Lien du formulaire d’inscription,
@@ -241,7 +247,13 @@ content:
       - { name: draft, label: Mode brouillon, type: boolean, default: true }
       - { name: tags, label: Étiquettes, type: string, list: true }
       - { name: description, label: Description, type: string }
-      - { name: image, label: Illustration, type: image, required: true }
+      - {
+          name: image,
+          label: Illustration,
+          type: image,
+          required: true,
+          options: { media: images, path: public/uploads/articles },
+        }
       - { name: body, label: Contenu, type: rich-text, required: true }
   - name: access-info
     label: Conseils d’accès
