@@ -139,10 +139,9 @@ const socialLinks = [
                   const { first, rest } = splitFirst(line);
                   const timeSlots = rest.split(/\s+/);
                   return (
-                    <div key={line}>
+                    <div>
                       {timeSlots.map((time, idx) => (
                         <div
-                          key={`${line}-${idx}`}
                           class="grid items-start gap-4"
                           style="grid-template-columns: 2fr 3fr;"
                         >
