@@ -4,6 +4,7 @@ import Button from "../components/UI/Button.astro";
 import ResponsiveImage from "../components/UI/ResponsiveImage.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import defaultProfile from "../assets/default-profile.png";
+import conf from "../utils/siteConfig";
 
 export async function getStaticPaths() {
   try {
@@ -22,6 +23,29 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+// Helper: split first word and the rest
+const splitFirst = (text: string) => {
+  if (!text) return { first: "", rest: "" };
+  const trimmed = String(text).trim();
+  const parts = trimmed.split(/\s+/);
+  const first = parts.shift() || "";
+  const rest = parts.join(" ");
+  return { first, rest };
+};
+
+// Helper: normalize section name for comparison
+const normalizeSectionName = (value: string | undefined) =>
+  String(value ?? "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .trim()
+    .toLowerCase();
+
+// Find the schedule for this discipline
+const disciplineSchedule = conf.home.schedules.find(
+  (schedule) => normalizeSectionName(schedule.section) === normalizeSectionName(entry.data.name)
+);
 
 const allStaff = await getCollection("staff");
 
@@ -106,6 +130,38 @@ const socialLinks = [
           class="prose prose-lg max-w-none prose-headings:text-gray-900 prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-p:text-gray-700 prose-li:text-gray-700 prose-strong:text-gray-900 bg-white rounded-lg shadow-sm p-6 md:p-8 lg:p-10 lg:col-span-2"
         >
           <h1 class="text-3xl font-bold mb-4">{entry.data.name}</h1>
+          
+          {disciplineSchedule ? (
+            <article class="mb-6 ml-4 rounded-lg bg-primary-50 p-6 not-prose border-l-4 border-primary-600">
+              <h2 class="mb-3 text-sm font-bold text-gray-900">Horaires habituels</h2>
+              <div class="flex flex-col justify-evenly gap-1 ml-4">
+                {disciplineSchedule.content.split("\n").map((line) => {
+                  const { first, rest } = splitFirst(line);
+                  return (
+                    <div
+                      class="grid items-start gap-4"
+                      style="grid-template-columns: 2fr 3fr;"
+                    >
+                      <div class="font-medium text-gray-600 text-sm">{first}</div>
+                      <div class="text-sm font-semibold text-gray-700">
+                        {rest}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+              {disciplineSchedule.comment && (
+                <p class="mt-4 text-sm italic text-gray-500">
+                  {disciplineSchedule.comment}
+                </p>
+              )}
+            </article>
+          ) : (
+            <div class="mb-6 rounded-lg bg-yellow-50 p-4 not-prose border border-yellow-200">
+              <p class="text-sm text-yellow-700">Aucun horaire configuré pour cette discipline</p>
+            </div>
+          )}
+          
           <Content />
         </div>
 
