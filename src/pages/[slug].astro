@@ -137,15 +137,23 @@ const socialLinks = [
               <div class="flex flex-col justify-evenly gap-1 ml-4">
                 {disciplineSchedule.content.split("\n").map((line) => {
                   const { first, rest } = splitFirst(line);
+                  const timeSlots = rest.split(/\s+/);
                   return (
-                    <div
-                      class="grid items-start gap-4"
-                      style="grid-template-columns: 2fr 3fr;"
-                    >
-                      <div class="font-medium text-gray-600 text-sm">{first}</div>
-                      <div class="text-sm font-semibold text-gray-700">
-                        {rest}
-                      </div>
+                    <div key={line}>
+                      {timeSlots.map((time, idx) => (
+                        <div
+                          key={`${line}-${idx}`}
+                          class="grid items-start gap-4"
+                          style="grid-template-columns: 2fr 3fr;"
+                        >
+                          <div class="font-medium text-gray-600 text-sm">
+                            {idx === 0 ? first : ""}
+                          </div>
+                          <div class="text-sm font-semibold text-gray-700">
+                            {time}
+                          </div>
+                        </div>
+                      ))}
                     </div>
                   );
                 })}
