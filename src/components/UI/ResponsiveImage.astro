@@ -67,19 +67,7 @@ const webpSrcset = image?.sources.webp
       loading={loading}
       decoding={decoding}
       class={className}
+      data-fade-in
     />
   </picture>
 </div>
-
-<script>
-  document.querySelectorAll<HTMLElement>("[data-responsive-image]").forEach((container) => {
-    const image = container.querySelector("img");
-    const clearPlaceholder = () => container.classList.remove("bg-neutral-400");
-
-    if (image?.complete) {
-      clearPlaceholder();
-    } else {
-      image?.addEventListener("load", clearPlaceholder, { once: true });
-    }
-  });
-</script>

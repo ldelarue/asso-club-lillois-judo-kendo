@@ -50,6 +50,7 @@ const {
     <meta name="generator" content={Astro.generator} />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="manifest" href="/site.webmanifest" />
+    <noscript><style>img[data-fade-in] { opacity: 1; }</style></noscript>
   </head>
   <body>
     <div class="flex flex-col min-h-screen">
@@ -61,5 +62,21 @@ const {
 
       <Footer />
     </div>
+
+    <script>
+      document
+        .querySelectorAll<HTMLImageElement>("img[data-fade-in]")
+        .forEach((image) => {
+          const reveal = () => image.setAttribute("data-loaded", "");
+
+          if (image.complete) {
+            reveal();
+          } else {
+            // Also reveal on error so the alt text of a broken image stays visible.
+            image.addEventListener("load", reveal, { once: true });
+            image.addEventListener("error", reveal, { once: true });
+          }
+        });
+    </script>
   </body>
 </html>
