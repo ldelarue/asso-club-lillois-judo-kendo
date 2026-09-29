@@ -3,6 +3,8 @@ author: Louis Delarue
 pubDate: 2026-09-29
 title: Retour du championnat d'europe de Jodo 2026
 draft: true
+tags:
+  - jodo
 image: /uploads/articles/retour-du-championnat-d-europe-de-jodo-2027/img-20260929-wa0001.jpg
 ---
 ## Une équipe de France qui enchaine les performances
