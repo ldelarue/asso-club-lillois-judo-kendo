@@ -1,5 +1,5 @@
 ---
-author: Louis
+author: Louis Delarue
 pubDate: 2026-09-29
 title: Retour du championnat d'europe de Jodo 2026
 draft: true
