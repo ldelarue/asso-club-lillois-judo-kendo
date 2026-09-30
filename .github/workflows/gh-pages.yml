@@ -10,7 +10,10 @@ on:
     branches: ["main"]
     paths-ignore:
       - ".pages.yml"
-      - "*.md"
+
+  # Rebuilds daily so build-time date filters (upcoming/past events) stay current
+  schedule:
+    - cron: "45 0 * * *"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
