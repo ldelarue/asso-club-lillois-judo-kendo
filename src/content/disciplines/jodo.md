@@ -24,5 +24,5 @@ Le jodo (杖道) est un art martial traditionnel japonais inventé au XVIIe s. I
 
 La section de Jodo de Lille a été crée il y a plus de dix ans ; elle appartient au Club Lillois de Judo Kendo. Elle comporte des pratiquants de tous niveaux, du kyusha au rokudan.
 
-![image](https://jodolille.com/wp-content/uploads/2023/09/804f18bfd4839fa6415f228a01bceae3.jpg)
+<img src="/uploads/disciplines/jodo-pratique.jpg" alt="Pratique du jodo" style="display: block; width: 75%; height: auto; margin: 0 auto;" />
 
